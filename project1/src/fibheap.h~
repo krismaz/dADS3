@@ -1,0 +1,50 @@
+#ifndef FIBHEAP_H
+#define FIBHEAP_H
+
+#include <forward_list>
+
+using namespace std;
+
+template <class T>
+struct FibNode
+{
+    int Key;
+    T Val;
+    int Degree;
+    bool Mark;
+    FibNode<T>* Parent;
+    forward_list<FibNode<T>*>* Children;
+};
+
+template <class T>
+class FibHeap
+{
+    private:
+	    int size;
+        FibNode<T> * min;
+        forward_list<FibNode<T>*>* roots;
+
+	public:
+		FibHeap();
+        ~FibHeap();
+		FibNode<T>* Insert(int, T);
+		FibNode<T>* DeleteMin();
+};
+
+template <class T>
+FibHeap<T>::FibHeap()
+{
+    size = 0;
+    min = NULL;
+    roots = new forward_list<FibNode<T>*>();
+}
+
+template <class T>
+FibNode<T>* FibHeap<T>::Insert(int k, T v)
+{
+    FibNode<T> * n = new FibNode<T>(); 
+     {k, v, 0, false, NULL, new forward_list<FibNode<T>*>()};
+    roots 
+}
+
+#endif

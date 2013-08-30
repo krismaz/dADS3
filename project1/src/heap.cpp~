@@ -1,0 +1,51 @@
+#define less(A, B) (A < B)
+#define more(A, B) (A > B)
+#define exch(A, B) { int t = A; A = B; B = t; } 
+
+#include "heap.h"
+
+void fixUp(int a[], int k)
+  {
+    while (k > 1 && more(a[k/2], a[k]))
+      { exch(a[k], a[k/2]); k = k/2; }
+  }
+
+
+void fixDown(int a[], int k, int N)
+  { int j;
+    while (2*k <= N)
+      { j = 2*k;
+        if (j < N && more(a[j], a[j+1])) j++;
+        if (!more(a[k], a[j])) break;
+        exch(a[k], a[j]); k = j;
+      }
+  }
+
+
+template <class T>
+Heap<T>::Heap(int maxSize)
+{
+    max = maxSize;
+    size = 0;
+    array = new int[maxSize+1];
+}
+
+template <class T>
+Heap<T>::~Heap()
+{
+    delete array;
+}
+
+template <class T>
+void Heap<T>::Insert(int i)
+{
+ array[++size] = i; fixUp(array, size); 
+}
+
+template <class T>
+int Heap<T>::DeleteMin()
+{
+    exch(array[1], array[size]); 
+    fixDown(array, 1, size-1); 
+    return array[size--];
+}
