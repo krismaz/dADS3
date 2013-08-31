@@ -36,6 +36,7 @@ class FibHeap
 		FibNode<T>* Insert(int, T);
 		FibNode<T>* DeleteMin();
         bool DecreaseKey(FibNode<T>*, int);
+        bool IsEmpty();
 };
 
 #define exch(A, B) { auto t = A; A = B; B = t; } 
@@ -199,6 +200,12 @@ void FibHeap<T>::cascade(FibNode<T>* n)
             p->Mark = true;
         }
     }
+}
+
+template <class T>
+bool FibHeap<T>::IsEmpty()
+{
+    return size == 0;
 }
 
 #endif
