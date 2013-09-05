@@ -1,52 +1,96 @@
 #ifndef HEAP_H
 #define HEAP_H
 
+
+using namespace std;
+
 template <class T>
 struct Node
 {
     int Key;
     T Val;
     int id;
+    Node<T>(int k, T v, int i)
+    {
+        Key = k;
+        Val = v;
+        id = i;
+    }
 };
 
 template <class T>
 class Heap
 {
     private:
-	    Node<T> * array;
+	    Node<T> ** array;
 	    int size;
 	    int max;  
+        void print(const char *);
+        void swap(int, int);
+        void fixUp(int);
+        void fixDown(int,int);
 
 	public:
 		Heap(int);
         ~Heap();
-		Node<T> Insert(int, T);
-		Node<T> DeleteMin();
+		Node<T>* Insert(int, T);
+		Node<T>* DeleteMin();
         bool IsEmpty();
-        bool DecreaseKey(Node<T>,int);
+        bool DecreaseKey(Node<T>*,int);
 };
 
 
-
-#define less(A, B) (A.Key < B.Key)
-#define more(A, B) (A.Key > B.Key)
-#define exch(A, B) { Node<T> t = A; A = B; B = t; B.id = A.id; A.id = t.id;} 
+#define more(A, B) (A->Key > B->Key)
 
 template <class T>
-void fixUp(Node<T> a[], int k)
+void Heap<T>::print(const char * s)
+{
+    return;
+    cout << s << endl;
+    for(int i = 1;i <=size; i++)
+    {
+        cout << i << " - " << array[i]->id <<  "-" << array[i]->Key << endl;
+    }
+}
+
+template <class T>
+void Heap<T>::swap(int i, int j)
+{
+    int id;
+    Node<T>* tmp;
+    tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+    id = array[i]->id;
+    array[i]->id = array[j]->id;
+    array[j]->id = id;
+}
+
+template <class T>
+void Heap<T>::fixUp(int k)
   {
-    while (k > 1 && more(a[k/2], a[k]))
-      { exch(a[k], a[k/2]); k = k/2; }
+    while (k > 1 && more(array[k/2], array[k]))
+      { 
+        swap(k, k/2);
+        k = k/2; 
+    }
   }
 
+
+
+
+
 template <class T>
-void fixDown(Node<T> a[], int k, int N)
-  { int j;
+void Heap<T>::fixDown(int k, int N)
+  { 
+    int j;
     while (2*k <= N)
-      { j = 2*k;
-        if (j < N && more(a[j], a[j+1])) j++;
-        if (!more(a[k], a[j])) break;
-        exch(a[k], a[j]); k = j;
+      { 
+        j = 2*k;
+        if (j < N && more(array[j], array[j+1])) j++;
+        if (!more(array[k], array[j])) break;
+        swap(k, j); 
+        k = j;
       }
   }
 
@@ -56,7 +100,8 @@ Heap<T>::Heap(int maxSize)
 {
     max = maxSize;
     size = 0;
-    array = new Node<T>[maxSize+1];
+    array = new Node<T>*[maxSize+1];
+    print("Init");
 }
 
 template <class T>
@@ -66,20 +111,24 @@ Heap<T>::~Heap()
 }
 
 template <class T>
-Node<T> Heap<T>::Insert(int k, T v)
+Node<T>* Heap<T>::Insert(int k, T v)
 {
+    print("Pre-Insert");
     int nid = ++size;
-    Node<T> i = {k, v, nid};
+    Node<T>* i = new Node<T>(k, v, nid);
     array[nid] = i;
-    fixUp(array, size);
+    fixUp(size);
+    print("Post-Insert");
     return i;
 }
 
 template <class T>
-Node<T> Heap<T>::DeleteMin()
+Node<T>* Heap<T>::DeleteMin()
 {
-    exch(array[1], array[size]); 
-    fixDown(array, 1, size-1); 
+    print("Pre-DeleteMin");
+    swap(1, size); 
+    fixDown( 1, size-1);
+    print("Post-DeleteMin"); 
     return array[size--];
 }
 
@@ -90,14 +139,17 @@ bool Heap<T>::IsEmpty()
 }
 
 template <class T>
-bool Heap<T>::DecreaseKey(Node<T> n, int k)
+bool Heap<T>::DecreaseKey(Node<T>* n, int k)
 {
-    if(array[n.id].Key <= k)
+    print("Pre-Decrease");
+    if(array[n->id]->Key <= k)
     {
+        print("Post-Decrease-f");
         return false;
     }
-    array[n.id].Key = k;
-    fixUp(array, n.id);
+    array[n->id]->Key = k;
+    fixUp(n->id);
+    print("Post-Decrease");
     return true;   
 }
 

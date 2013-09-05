@@ -16,6 +16,7 @@ struct FibNode
     bool Mark;
     FibNode<T>* Parent;
     unordered_set<FibNode<T>*>* Children;
+    //TODO Destructor
 };
 
 template <class T>
