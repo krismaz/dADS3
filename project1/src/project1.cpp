@@ -19,7 +19,7 @@ int main(){
     ds[0]->Neighbours->push_front(pair<int, DijkstraNode*>(7, ds[2]));
     ds[1]->Neighbours->push_front(pair<int, DijkstraNode*>(1, ds[2]));
     
-    BinDijkstra(ds, 3);
+    FibDijkstra(ds, 3);
 
     for(int i = 0; i<3; i++)
     {
