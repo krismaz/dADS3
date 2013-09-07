@@ -13,10 +13,12 @@ struct DijkstraNode
     DijkstraNode * Pred;
     forward_list<pair<int, DijkstraNode*>>* Neighbours;
     void* NodeData;
+    bool Visited;
 
     DijkstraNode()
     {
         Neighbours = new forward_list<pair<int, DijkstraNode*>>();
+        Visited = false;
     }
     ~DijkstraNode()
     {
@@ -48,11 +50,16 @@ void BinDijkstra(DijkstraNode ** nodes, int count)
         }
         for(auto it = dn->Neighbours->begin(); it != dn->Neighbours->end(); ++it)
         {
+            if((*it).second->Visited)
+            {
+                continue;
+            }
             if(heap->DecreaseKey((Node<DijkstraNode*>*)(*it).second->NodeData, dn->Dist + (*it).first))
             {
                 (*it).second->Pred = dn;
             }
         }
+        delete n;
     }
 }
 
@@ -80,11 +87,16 @@ void FibDijkstra(DijkstraNode ** nodes, int count)
         }
         for(auto it = dn->Neighbours->begin(); it != dn->Neighbours->end(); ++it)
         {
+            if((*it).second->Visited)
+            {
+                continue;
+            }
             if(heap->DecreaseKey((FibNode<DijkstraNode*>*)(*it).second->NodeData, dn->Dist + (*it).first))
             {
                 (*it).second->Pred = dn;
             }
         }
+        delete n;
     }
 }
 
