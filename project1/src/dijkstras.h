@@ -43,6 +43,7 @@ void BinDijkstra(DijkstraNode ** nodes, int count)
         Node<DijkstraNode*>* n = heap->DeleteMin();
         DijkstraNode* dn = n->Val;
         dn->Dist = n->Key;
+        dn->Visited = true;
         if(n->Key == INT_MAX)
         {
             cout << "WARNING UNREACHABLE NODE!"<<endl;
@@ -80,6 +81,7 @@ void FibDijkstra(DijkstraNode ** nodes, int count)
         FibNode<DijkstraNode*>* n = heap->DeleteMin();
         DijkstraNode* dn = n->Val;
         dn->Dist = n->Key;
+        dn->Visited = true;
         if(n->Key == INT_MAX)
         {
             cout << "WARNING UNREACHABLE NODE!"<<endl;
