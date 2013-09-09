@@ -105,8 +105,8 @@ template <class T>
 void FibHeap<T>::consolidate()
 {
     //TODO:Actually find a way to do fast reverse fibonacci, or make this a list
-    FibNode<T>* A[32] = {}; 
-    for(int i = 0; i<32; i++)
+    FibNode<T>* A[10] = {}; 
+    for(int i = 0; i<10; i++)
     {
         A[i] = NULL;
     }
@@ -134,7 +134,7 @@ void FibHeap<T>::consolidate()
         roots->erase(*it);
     }
     min = NULL;
-    for (int i = 0; i < 32; i++)
+    for (int i = 0; i < 10; i++)
     {
        if(A[i]!=NULL)
        {
@@ -152,6 +152,7 @@ void FibHeap<T>::link(FibNode<T>* y,FibNode<T>* n)
     n->Children->insert(y);
     n->Degree++;
     y->Mark = false;
+    y->Parent = n;
 }
 
 template <class T>
