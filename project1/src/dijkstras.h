@@ -60,7 +60,7 @@ void BinDijkstra(DijkstraNode ** nodes, int count)
                 (*it).second->Pred = dn;
             }
         }
-        //delete n;
+        delete n;
     }
 }
 
@@ -98,7 +98,7 @@ void FibDijkstra(DijkstraNode ** nodes, int count)
                 (*it).second->Pred = dn;
             }
         }
-        //delete n;
+        delete n;
     }
 }
 

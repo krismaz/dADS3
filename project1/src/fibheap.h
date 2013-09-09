@@ -105,8 +105,8 @@ template <class T>
 void FibHeap<T>::consolidate()
 {
     //TODO:Actually find a way to do fast reverse fibonacci, or make this a list
-    FibNode<T>* A[10] = {}; 
-    for(int i = 0; i<10; i++)
+    FibNode<T>* A[64] = {}; 
+    for(int i = 0; i<64; i++)
     {
         A[i] = NULL;
     }
@@ -134,7 +134,7 @@ void FibHeap<T>::consolidate()
         roots->erase(*it);
     }
     min = NULL;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 64; i++)
     {
        if(A[i]!=NULL)
        {
