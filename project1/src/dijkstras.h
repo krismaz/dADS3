@@ -19,6 +19,7 @@ struct DijkstraNode
     {
         Neighbours = new forward_list<pair<int, DijkstraNode*>>();
         Visited = false;
+        Pred = NULL;
     }
     ~DijkstraNode()
     {

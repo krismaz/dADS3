@@ -23,7 +23,7 @@ int main(){
 
     for(int i = 0; i<N; i++)
     {
-        cout << ds[i]->Dist << " -> " << ((ds[i]->Pred == NULL) ? 0 : ds[i]->Pred->Id) << endl;
+        //cout << ds[i]->Dist << " -> " << ((ds[i]->Pred == NULL) ? 0 : ds[i]->Pred->Id) << endl;
     }
 	return 0;
 }

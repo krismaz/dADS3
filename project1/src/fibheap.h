@@ -28,8 +28,8 @@ class FibHeap
     private:
 	    int size;
         FibNode<T>* min;
-        unordered_set<FibNode<T>*>* roots;
-        void consolidate();
+        forward_list<FibNode<T>*>* roots;
+        void consolidate(FibNode<T>*);
         void link(FibNode<T>*, FibNode<T>*);
         void cut(FibNode<T>*, FibNode<T>*);
         void cascade(FibNode<T>*);
@@ -51,7 +51,7 @@ FibHeap<T>::FibHeap()
 {
     size = 0;
     min = NULL;
-    roots = new unordered_set<FibNode<T>*>();
+    roots = new forward_list<FibNode<T>*>();
 }
 
 template <class T>
@@ -69,7 +69,8 @@ FibNode<T>* FibHeap<T>::Insert(int k, T v)
     n->Degree = 0;
     n->Mark = false;
     n->Children = new unordered_set<FibNode<T>*>();
-    roots->insert(n);
+    n->Parent = NULL;
+    roots->push_front(n);
     if(min == NULL || min->Key > k)
     {
         min = n;
@@ -87,17 +88,18 @@ FibNode<T>* FibHeap<T>::DeleteMin()
         for(auto it = n->Children->begin(); it != n->Children->end(); ++it)
         {
             FibNode<T>* c = *it;
-            roots->insert(c);
+            roots->push_front(c);
             c->Parent = NULL;
         }
-        roots->erase(n);
         if(size == 1)
         {
             min = NULL;
+            delete roots;
+            roots = new forward_list<FibNode<T>*>();
         }
         else
         {
-            consolidate();
+            consolidate(n);
         }
         size--;
     }
@@ -113,14 +115,18 @@ int maxDegree(int n)
 }
 
 template <class T>
-void FibHeap<T>::consolidate()
+void FibHeap<T>::consolidate(FibNode<T>* del)
 {
     int degree = maxDegree(size);
     FibNode<T>** A = new FibNode<T>*[degree]();
-    forward_list<FibNode<T>*>* erase = new forward_list<FibNode<T>*>();
+    forward_list<FibNode<T>*>* nroots = new forward_list<FibNode<T>*>();
     for(auto it = roots->begin(); it != roots->end(); ++it)
     {
         FibNode<T> *  n = *it;
+        if(n==del)
+        {
+          continue;
+        }
         int d = n->Degree;
         while(A[d]!=NULL)
         {
@@ -129,22 +135,18 @@ void FibHeap<T>::consolidate()
             {
                 exch(n,y);
             }
-            erase->push_front(y);
             link(y,n);
             A[d] = NULL;
             d++;
         }
         A[d]=n;
     }
-    for(auto it = erase->begin(); it != erase->end(); ++it)
-    {
-        roots->erase(*it);
-    }
     min = NULL;
     for (int i = 0; i < degree; i++)
     {
        if(A[i]!=NULL)
        {
+         nroots->push_front(A[i]);
          if(min == NULL || A[i]->Key < min->Key)
          {
             min = A[i];
@@ -152,7 +154,8 @@ void FibHeap<T>::consolidate()
        }
     }
     delete[] A;
-    delete erase;
+    delete roots;
+    roots = nroots;
 }
 
 template <class T>
@@ -190,7 +193,7 @@ template <class T>
 void FibHeap<T>::cut(FibNode<T>* n, FibNode<T>* p)
 {
     p->Children->erase(n);
-    roots->insert(n);
+    roots->push_front(n);
     n->Parent = NULL;
     n->Mark = false;
 }
