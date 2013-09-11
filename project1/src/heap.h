@@ -107,7 +107,7 @@ Heap<T>::Heap(int maxSize)
 template <class T>
 Heap<T>::~Heap()
 {
-    delete array;
+    delete[] array;
 }
 
 template <class T>

@@ -16,7 +16,10 @@ struct FibNode
     bool Mark;
     FibNode<T>* Parent;
     unordered_set<FibNode<T>*>* Children;
-    //TODO Destructor
+    ~FibNode()
+    {
+        delete Children;
+    }
 };
 
 template <class T>
@@ -101,15 +104,19 @@ FibNode<T>* FibHeap<T>::DeleteMin()
     return n;
 }
 
+int maxDegree(int n)
+{
+    return 32;
+    int i = 0;
+    while(1<<i++<=n);
+    return i*2;
+}
+
 template <class T>
 void FibHeap<T>::consolidate()
 {
-    //TODO:Actually find a way to do fast reverse fibonacci, or make this a list
-    FibNode<T>* A[64] = {}; 
-    for(int i = 0; i<64; i++)
-    {
-        A[i] = NULL;
-    }
+    int degree = maxDegree(size);
+    FibNode<T>** A = new FibNode<T>*[degree]();
     forward_list<FibNode<T>*>* erase = new forward_list<FibNode<T>*>();
     for(auto it = roots->begin(); it != roots->end(); ++it)
     {
@@ -134,7 +141,7 @@ void FibHeap<T>::consolidate()
         roots->erase(*it);
     }
     min = NULL;
-    for (int i = 0; i < 64; i++)
+    for (int i = 0; i < degree; i++)
     {
        if(A[i]!=NULL)
        {
@@ -144,6 +151,8 @@ void FibHeap<T>::consolidate()
          }
        }
     }
+    delete[] A;
+    delete erase;
 }
 
 template <class T>
