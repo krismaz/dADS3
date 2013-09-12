@@ -13,5 +13,9 @@
 *.la
 *.a
 
+# Sublime files
+*.sublime-project
+*.sublime-workspace
+
 bin/
 obj/
