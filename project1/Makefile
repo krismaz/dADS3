@@ -1,6 +1,6 @@
 CC = clang++
 LINKER = clang++ -o
-CFLAGS = -Wall -std=c++11 -g
+CFLAGS = -Wall -std=c++11 -g -O3
 
 SRCDIR = src
 OBJDIR = obj
