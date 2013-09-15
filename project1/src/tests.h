@@ -2,6 +2,7 @@
 #define TESTS_H
 
 #include <ctime>
+#include <climits>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ clock_t TestInserts(int n)
 	auto heap = new H(n);
 	auto nodes = new N*[n]();
 	clock_t t = clock();
-	for(int i = 0; i < n; i++)
+	for(int i = n; i > 0; i--)
 	{
 		nodes[i] = heap->Insert(i,i);
 	}
@@ -43,4 +44,31 @@ clock_t TestDeleteMin(int n)
 	return t;
 }
 
+
+template<typename H, typename N>
+clock_t TestDecrease(int n)
+{
+	auto heap = new H(n);
+	auto nodes = new N*[n]();
+
+  int c = INT_MAX/100;
+	for(int i = n; i >= 0; i--)
+	{
+		nodes[i] = heap->Insert(c,c);
+    c--;
+	}
+  clock_t t = clock();
+  for(int j = 0; j < 5; j++)
+  {
+  for(int i = n; i > 0; i--)
+	{
+		heap->DecreaseKey(nodes[i], c);
+    c--;
+	}
+  }
+	t = clock() - t;
+	delete[] nodes;
+	delete heap;
+	return t;
+}
 #endif

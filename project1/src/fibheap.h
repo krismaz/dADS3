@@ -75,6 +75,22 @@ FibHeap<T>::~FibHeap()
     //delete roots;
 }
 
+template <class T>
+void removeChild(FibNode<T>* n, FibNode<T>* p)
+{
+    if(p->Child == n)
+    {
+      p->Child = n->Right;
+    }
+    if(n->Right != NULL)
+    {
+      n->Right->Left = n->Left; 
+    }
+    if(n->Left != NULL)
+    {
+      n->Left->Right = n->Right; 
+    }
+}
 
 template <class T>
 void FibHeap<T>::addRoot(FibNode<T>* n)
@@ -109,6 +125,10 @@ void FibHeap<T>::removeRoot(FibNode<T>* n)
 template <class T>
 FibNode<T>* FibHeap<T>::Insert(int k, T v)
 {
+    if(k < 0)
+    {
+      cout << "WARNING NEGATIVE KEY" << endl;
+    }
     FibNode<T> * n = new FibNode<T>(k, v);
     addRoot(n);
     if(min == NULL || min->Key > k)
@@ -129,6 +149,7 @@ FibNode<T>* FibHeap<T>::DeleteMin()
         for(auto it = n->Child; it != NULL; )
         {
             auto nit = it->Right;
+            //removeChild(it,n);
             addRoot(it);
             it = nit;
         }
@@ -148,7 +169,7 @@ FibNode<T>* FibHeap<T>::DeleteMin()
 
 int maxDegree(int n)
 {
-    //return 32;
+    return 32;
     int i = 0;
     while(1<<i++<=n);
     return i*2;
@@ -195,6 +216,7 @@ template <class T>
 void FibHeap<T>::link(FibNode<T>* y,FibNode<T>* n)
 {
     removeRoot(y);
+    //Add Child
     y->Right = n->Child;
     if(y->Right!=NULL)
     {
@@ -209,6 +231,10 @@ void FibHeap<T>::link(FibNode<T>* y,FibNode<T>* n)
 template <class T>
 bool FibHeap<T>::DecreaseKey(FibNode<T>* n, int k)
 {
+    if(k < 0)
+    {
+      cout << "WARNING NEGATIVE KEY" << endl;
+    }
     if(k >= n->Key)
     {
         return false;
@@ -231,17 +257,7 @@ bool FibHeap<T>::DecreaseKey(FibNode<T>* n, int k)
 template <class T>
 void FibHeap<T>::cut(FibNode<T>* n, FibNode<T>* p)
 {
-    if(p->Child == n)
-    {
-      p->Child = n->Right;
-    }
-    if(n->Right != NULL)
-    {
-      n->Right->Left = n->Left; 
-    }if(n->Left != NULL)
-    {
-      n->Left->Right = n->Right; 
-    }
+    removeChild(n,p);
     addRoot(n);
     n->Mark = false;
 }

@@ -113,6 +113,10 @@ Heap<T>::~Heap()
 template <class T>
 Node<T>* Heap<T>::Insert(int k, T v)
 {
+    if(k < 0)
+    {
+      cout << "WARNING NEGATIVE KEY" << endl;
+    }
     print("Pre-Insert");
     int nid = ++size;
     Node<T>* i = new Node<T>(k, v, nid);
@@ -141,6 +145,10 @@ bool Heap<T>::IsEmpty()
 template <class T>
 bool Heap<T>::DecreaseKey(Node<T>* n, int k)
 {
+    if(k < 0)
+    {
+      cout << "WARNING NEGATIVE KEY" << endl;
+    }
     print("Pre-Decrease");
     if(array[n->id]->Key <= k)
     {
