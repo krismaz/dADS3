@@ -33,11 +33,11 @@ clock_t TestDeleteMin(int n)
 	{
 		nodes[i] = heap->Insert(i,i);
 	}
-  clock_t t = clock();
-  while(!heap->IsEmpty())
-  {
-    heap->DeleteMin();
-  }
+	clock_t t = clock();
+	while(!heap->IsEmpty())
+	{
+	heap->DeleteMin();
+	}
 	t = clock() - t;
 	delete[] nodes;
 	delete heap;
