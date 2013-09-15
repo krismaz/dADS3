@@ -10,19 +10,14 @@ struct Node
 	int Key;
 	T Val;
 	int id;
-	Node<T>(int k, T v, int i)
-	{
-		Key = k;
-		Val = v;
-		id = i;
-	}
+	Node<T>(int k, T v, int i) : Key(k), Val(v), id(i) {}
 };
 
 template <class T>
 class Heap
 {
 	private:
-		Node<T> ** array;
+		Node<T>* *array;
 		int size;
 		int max;  
 		void print(const char *);
@@ -96,11 +91,8 @@ void Heap<T>::fixDown(int k, int N)
 
 
 template <class T>
-Heap<T>::Heap(int maxSize)
+Heap<T>::Heap(int maxSize) : array(new Node<T>* [maxSize+1]), size(0), max(maxSize)
 {
-	max = maxSize;
-	size = 0;
-	array = new Node<T>*[maxSize+1];
 	print("Init");
 }
 

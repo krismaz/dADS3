@@ -28,7 +28,7 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 
 .PHONEY: clean
 clean:
-	@rm $(OBJECTS)
+	@rm -f $(OBJECTS)
 	@echo "Cleanup complete!"
 
 .PHONEY: remove

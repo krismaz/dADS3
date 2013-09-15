@@ -8,23 +8,26 @@ using namespace std;
 
 
 template<typename H, typename N>
-clock_t TestInserts(int n)
+float TestInserts(int n)
 {
 	auto heap = new H(n);
 	auto nodes = new N*[n]();
 	clock_t t = clock();
-	for(int i = n; i > 0; i--)
+	for(int i = n-1; i >= 0; i--)
 	{
 		nodes[i] = heap->Insert(i,i);
 	}
-	t = clock() - t;
+	t = clock() - t;	
+	for(int i = n-1; i >= 0; i--) {
+		delete nodes[i];
+	}
 	delete[] nodes;
 	delete heap;
-	return t;
+	return (float)t/CLOCKS_PER_SEC;
 }
 
 template<typename H, typename N>
-clock_t TestDeleteMin(int n)
+float TestDeleteMin(int n)
 {
 	auto heap = new H(n);
 	auto nodes = new N*[n]();
@@ -36,12 +39,12 @@ clock_t TestDeleteMin(int n)
 	clock_t t = clock();
 	while(!heap->IsEmpty())
 	{
-	heap->DeleteMin();
+		heap->DeleteMin();
 	}
 	t = clock() - t;
 	delete[] nodes;
 	delete heap;
-	return t;
+	return (float)t/CLOCKS_PER_SEC;
 }
 
 
@@ -51,21 +54,21 @@ clock_t TestDecrease(int n)
 	auto heap = new H(n);
 	auto nodes = new N*[n]();
 
-  int c = INT_MAX/100;
+	int c = INT_MAX/100;
 	for(int i = n; i >= 0; i--)
 	{
 		nodes[i] = heap->Insert(c,c);
-    c--;
+		c--;
 	}
-  clock_t t = clock();
-  for(int j = 0; j < 5; j++)
-  {
-  for(int i = n; i > 0; i--)
+	clock_t t = clock();
+	for(int j = 0; j < 5; j++)
 	{
-		heap->DecreaseKey(nodes[i], c);
-    c--;
+		for(int i = n; i > 0; i--)
+		{
+			heap->DecreaseKey(nodes[i], c);
+			c--;
+		}
 	}
-  }
 	t = clock() - t;
 	delete[] nodes;
 	delete heap;
