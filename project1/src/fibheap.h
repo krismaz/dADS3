@@ -260,7 +260,8 @@ template <class T>
 void FibHeap<T>::cut(FibNode<T>* n, FibNode<T>* p)
 {
 	removeChild(n,p);
-    addRoot(n);
+	p->Degree--;    
+	addRoot(n);
     n->Mark = false;
 }
 
