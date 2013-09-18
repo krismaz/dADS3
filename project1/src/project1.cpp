@@ -86,8 +86,6 @@ int main(int argc, char *argv[]) {
 		cout << "Invalid argument: " << test << ". Must be 'insert' or 'delete'" << endl;
 	}
 	cout << runTime << endl;
-
-	cin.get();
 	// cout << "Runtime: " << runTime << " seconds" << endl;
 
 	return 0;

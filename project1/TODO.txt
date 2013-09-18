@@ -1,0 +1,44 @@
+1. (jan) Implementer FindMin
+2. (kris) (2) Argue about the worst-case (as opposed to amortized) time bounds for each of the operations of Fibonnacci Heaps and binary heaps.
+3. (jan) Runtime for -> Output til GNU-plot(?)
+	 Insert, 
+	 DeleteMin, 
+	 DecreaseKey
+   Count comparisons
+4. (roland) Template Dijkstra
+5. (kris) Describe (5)
+6. (roland) Test Dijkstra - (se udkommerteret kode i project1.cpp og history. 
+			     Beware of DeccreaseKey overflow. Length A > B+1 > C+1
+			     Test på optimal decreasekey graph og random graph.
+			     Virker det for cykler)
+
+
+
+
+Rapport:
+
+Heaps:
+	Fibonacci:	
+		Teori
+		Implementation
+	Binary:
+		Teori
+		Implementation
+
+Dijkstra's algorithm
+	Fibonacci:	
+		Teori
+		Implementation
+	Binary:
+		Teori
+		Implementation
+
+Tests
+	Fibonacci
+	Binary
+
+Konklusion
+	
+
+
+

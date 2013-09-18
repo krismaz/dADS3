@@ -17,7 +17,7 @@ float TestInserts(int n)
 	{
 		nodes[i] = heap->Insert(i,i);
 	}
-	t = clock() - t;	
+	t = clock() - t;
 	for(int i = n-1; i >= 0; i--) {
 		delete nodes[i];
 	}
@@ -32,14 +32,15 @@ float TestDeleteMin(int n)
 	auto heap = new H(n);
 	auto nodes = new N*[n]();
 
-	for(int i = 0; i < n; i++)
+	for(int i = n-1; i >= 0; i--)
 	{
 		nodes[i] = heap->Insert(i,i);
 	}
 	clock_t t = clock();
 	while(!heap->IsEmpty())
 	{
-		heap->DeleteMin();
+		N* node = heap->DeleteMin();
+		delete node;
 	}
 	t = clock() - t;
 	delete[] nodes;
