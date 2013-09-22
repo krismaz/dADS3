@@ -20,7 +20,7 @@ class Heap
 		Node<T>* *array;
 		int size;
 		int max;
-		unsigned long comparisons;
+		unsigned long long comparisons;
 		void print(const char *);
 		void swap(int, int);
 		void fixUp(int);
@@ -35,7 +35,7 @@ class Heap
 		bool IsEmpty();
 		bool DecreaseKey(Node<T>*,int);
 		void resetComparisons();
-		unsigned long getComparisons();
+		unsigned long long getComparisons();
 };
 
 
@@ -120,7 +120,7 @@ void Heap<T>::resetComparisons()
 }
 
 template <class T>
-unsigned long Heap<T>::getComparisons()
+unsigned long long Heap<T>::getComparisons()
 {
 	return comparisons;
 }

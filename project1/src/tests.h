@@ -9,7 +9,7 @@ using namespace std;
 
 
 template<typename H, typename N>
-tuple<float, int> TestInserts(int n)
+tuple<float, unsigned long long> TestInserts(int n)
 {
 	// SETUP
 	auto heap = new H(n);
@@ -24,9 +24,9 @@ tuple<float, int> TestInserts(int n)
 	t = clock() - t;
 
 	// FORMAT OUTPUT
-	unsigned long comparisons = heap->getComparisons();
+	unsigned long long comparisons = heap->getComparisons();
 	float runTime = (float)t/CLOCKS_PER_SEC;
-	tuple<float, unsigned long> result = tuple<float, unsigned long>(runTime, comparisons);
+	tuple<float, unsigned long long> result = tuple<float, unsigned long long>(runTime, comparisons);
 
 	// CLEANUP
 	for(int i = n-1; i >= 0; i--) delete nodes[i];
@@ -38,7 +38,7 @@ tuple<float, int> TestInserts(int n)
 }
 
 template<typename H, typename N>
-tuple<float, int> TestDeleteMin(int n)
+tuple<float, unsigned long long> TestDeleteMin(int n)
 {
 	// SETUP
 	auto heap = new H(n);
@@ -59,9 +59,9 @@ tuple<float, int> TestDeleteMin(int n)
 	t = clock() - t;
 
 	// FORMAT OUTPUT
-	unsigned long comparisons = heap->getComparisons();
+	unsigned long long comparisons = heap->getComparisons();
 	float runTime = (float)t/CLOCKS_PER_SEC;
-	tuple<float, unsigned long> result = tuple<float, unsigned long>(runTime, comparisons);
+	tuple<float, unsigned long long> result = tuple<float, unsigned long long>(runTime, comparisons);
 
 	// CLEANUP
 	delete[] nodes;
@@ -73,7 +73,7 @@ tuple<float, int> TestDeleteMin(int n)
 
 
 template<typename H, typename N>
-tuple<float, int> TestDecreaseKey(int n)
+tuple<float, unsigned long long> TestDecreaseKey(int n)
 {
 	// SETUP
 	auto heap = new H(n);
@@ -99,9 +99,9 @@ tuple<float, int> TestDecreaseKey(int n)
 	t = clock() - t;
 
 	// FORMAT OUTPUT
-	unsigned long comparisons = heap->getComparisons();
+	unsigned long long comparisons = heap->getComparisons();
 	float runTime = (float)t/CLOCKS_PER_SEC;
-	tuple<float, unsigned long> result = tuple<float, unsigned long>(runTime, comparisons);
+	tuple<float, unsigned long long> result = tuple<float, unsigned long long>(runTime, comparisons);
 
 	// CLEANUP
 	delete[] nodes;

@@ -31,7 +31,7 @@ class FibHeap
 {
 	private:
 		int size;
-		unsigned long comparisons;
+		unsigned long long comparisons;
 		FibNode<T>* min;
 		FibNode<T>* roots;
 		void consolidate();
@@ -51,7 +51,7 @@ class FibHeap
 		bool DecreaseKey(FibNode<T>*, int);
 		bool IsEmpty();
 		void resetComparisons();
-		unsigned long getComparisons();
+		unsigned long long getComparisons();
 };
 
 #define exch(A, B) { auto t = A; A = B; B = t; } 
@@ -76,7 +76,7 @@ void FibHeap<T>::resetComparisons()
 }
 
 template <class T>
-unsigned long FibHeap<T>::getComparisons()
+unsigned long long FibHeap<T>::getComparisons()
 {
 	return comparisons;
 }

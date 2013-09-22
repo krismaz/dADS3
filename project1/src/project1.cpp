@@ -59,9 +59,7 @@ int main(int argc, char *argv[]) {
 	string heap = argv[2];
 	int operations = atoi(argv[3]);
 	float runTime = -1.0;
-	unsigned long comparisons = 0;
-
-	// tuple<float, int> result;
+	unsigned long long comparisons = 0;
 
 	if(test == "insert") {
 		if(heap == "binary") {	
