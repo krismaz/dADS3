@@ -259,6 +259,7 @@ bool FibHeap<T>::DecreaseKey(FibNode<T>* n, int k)
 	}
 	n->Key = k;
 	auto p  = n->Parent;
+	comparisons++;
 	if(p!=NULL && k < p->Key)
 	{
 		cut(n, p);
