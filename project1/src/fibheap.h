@@ -31,6 +31,7 @@ class FibHeap
 {
 	private:
 		int size;
+		unsigned long comparisons;
 		FibNode<T>* min;
 		FibNode<T>* roots;
 		void consolidate();
@@ -49,26 +50,18 @@ class FibHeap
 		FibNode<T>* FindMin();
 		bool DecreaseKey(FibNode<T>*, int);
 		bool IsEmpty();
+		void resetComparisons();
+		unsigned long getComparisons();
 };
 
 #define exch(A, B) { auto t = A; A = B; B = t; } 
 
 
 template <class T>
-FibHeap<T>::FibHeap()
-{
-	size = 0;
-	min = NULL;
-	roots = NULL;
-}
+FibHeap<T>::FibHeap() : size(0), comparisons(0), min(NULL), roots(NULL) {}
 
 template <class T>
-FibHeap<T>::FibHeap(int i)
-{
-	size = 0;
-	min = NULL;
-	roots = NULL;
-}
+FibHeap<T>::FibHeap(int i) : size(0), comparisons(0), min(NULL), roots(NULL) {}
 
 template <class T>
 FibHeap<T>::~FibHeap()
@@ -77,20 +70,32 @@ FibHeap<T>::~FibHeap()
 }
 
 template <class T>
+void FibHeap<T>::resetComparisons()
+{
+	comparisons = 0;
+}
+
+template <class T>
+unsigned long FibHeap<T>::getComparisons()
+{
+	return comparisons;
+}
+
+template <class T>
 void removeChild(FibNode<T>* n, FibNode<T>* p)
 {
-    if(p->Child == n)
-    {
-      p->Child = n->Right;
-    }
-    if(n->Right != NULL)
-    {
-      n->Right->Left = n->Left; 
-    }
-    if(n->Left != NULL)
-    {
-      n->Left->Right = n->Right; 
-    }
+	if(p->Child == n)
+	{
+		p->Child = n->Right;
+	}
+	if(n->Right != NULL)
+	{
+		n->Right->Left = n->Left; 
+	}
+	if(n->Left != NULL)
+	{
+		n->Left->Right = n->Right; 
+	}
 }
 
 template <class T>
@@ -133,6 +138,8 @@ FibNode<T>* FibHeap<T>::Insert(int k, T v)
 	}
 	FibNode<T> * n = new FibNode<T>(k, v);
 	addRoot(n);
+
+	comparisons++;
 	if(min == NULL || min->Key > k)
 	{
 		min = n;
@@ -196,6 +203,7 @@ void FibHeap<T>::consolidate()
 		while(A[d]!=NULL)
 		{
 			FibNode<T> * y = A[d];
+			comparisons++;
 			if(it->Key > y->Key)
 			{
 				exch(it,y);
@@ -212,6 +220,7 @@ void FibHeap<T>::consolidate()
 	{
 		if(A[i]!=NULL)
 		{
+			comparisons++;
 			if(min == NULL || A[i]->Key < min->Key)
 			{
 				min = A[i];
@@ -267,9 +276,9 @@ template <class T>
 void FibHeap<T>::cut(FibNode<T>* n, FibNode<T>* p)
 {
 	removeChild(n,p);
-	p->Degree--;    
+	p->Degree--;
 	addRoot(n);
-    n->Mark = false;
+	n->Mark = false;
 }
 
 template <class T>

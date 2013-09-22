@@ -47,8 +47,6 @@ using namespace std;
 
 
 int main(int argc, char *argv[]) {
-
-
 	if(argc < 3) {
 		cout << "Too few Arguments! Arguments are: test heap operations" << endl
 			 << "Test: which test to run {insert, delete}" << endl
@@ -61,33 +59,44 @@ int main(int argc, char *argv[]) {
 	string heap = argv[2];
 	int operations = atoi(argv[3]);
 	float runTime = -1.0;
+	unsigned long comparisons = 0;
+
+	// tuple<float, int> result;
 
 	if(test == "insert") {
 		if(heap == "binary") {	
-			cout << "#Testing " << operations << " inserts with Binary Heap" << endl;
-			runTime = TestInserts<Heap<int>, Node<int>>(operations);
+			// cout << "#Testing " << operations << " Inserts with Binary Heap" << endl;
+			tie(runTime, comparisons) = TestInserts<Heap<int>, Node<int>>(operations);
 		} else if(heap == "fibonacci") {
-			cout << "#Testing " << operations << " inserts with Fibonacci Heap" << endl;
-			runTime = TestInserts<FibHeap<int>, FibNode<int>>(operations);
+			// cout << "#Testing " << operations << " Inserts with Fibonacci Heap" << endl;
+			tie(runTime, comparisons) = TestInserts<FibHeap<int>, FibNode<int>>(operations);
 		} else {
 			cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
 		}
-	} else if(test == "delete") {
+	} else if(test == "deletemin") {
 		if(heap == "binary") {
-			cout << "#Testing " << operations << " Deletes with Binary Heap" << endl;
-			runTime = TestDeleteMin<Heap<int>, Node<int>>(operations);
+			// cout << "#Testing " << operations << " DeleteMins with Binary Heap" << endl;
+			tie(runTime, comparisons) = TestDeleteMin<Heap<int>, Node<int>>(operations);
 		} else if(heap == "fibonacci") {
-			cout << "#Testing " << operations << " Deletes with Fibonacci Heap" << endl;
-			runTime = TestDeleteMin<FibHeap<int>, FibNode<int>>(operations);
+			// cout << "#Testing " << operations << " DeleteMins with Fibonacci Heap" << endl;
+			tie(runTime, comparisons) = TestDeleteMin<FibHeap<int>, FibNode<int>>(operations);
+		} else {
+			cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
+		}
+	} else if(test == "decreasekey") {
+		if(heap == "binary") {
+			// cout << "#Testing " << operations << " DecreaseKeys with Binary Heap" << endl;
+			tie(runTime, comparisons) = TestDecreaseKey<Heap<int>, Node<int>>(operations);
+		} else if(heap == "fibonacci") {
+			// cout << "#Testing " << operations << " DecreaseKeys with Fibonacci Heap" << endl;
+			tie(runTime, comparisons) = TestDecreaseKey<FibHeap<int>, FibNode<int>>(operations);
 		} else {
 			cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
 		}
 	} else {
-		cout << "Invalid argument: " << test << ". Must be 'insert' or 'delete'" << endl;
+		cout << "Invalid argument: " << test << ". Must be 'insert', 'deletemin' or 'decreasekey'" << endl;
 	}
-	cout << runTime << endl;
-	// cout << "Runtime: " << runTime << " seconds" << endl;
-
+	cout << operations << "   \t" << runTime << "  \t" << comparisons << endl;
 	return 0;
 
 

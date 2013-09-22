@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE>Advanced Data Structures 2013</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK href="../style/au.css" type=text/css rel=stylesheet>
+<BODY>
+<DIV id=border>
+
+<h1>Advanced Data Structures - Project 1 (Priority Queues)</h1>
+
+<p>
+The topic of this project is to compare the practical performance of
+<em>Fibonacci heaps</em> and <em>binary heaps</em>.
+
+</p>
+
+<p>
+The project should be done in groups of 2-3 people. Please a.s.a.p.
+send the names of the people in your group to <a
+href="mailto:gerth@cs.au.dk">gerth@cs.au.dk</a>.
+</p>
+
+<p>
+The project consists of the following tasks:
+</p>
+
+<ol>
+<li> Implement 
+<ol>
+<li>
+the <a href="http://portal.acm.org/citation.cfm?id=28874">Fibonnacci
+Heaps</a> of Fredman and Tarjan,
+<li> the binary heaps of 
+Williams (<a
+href="http://portal.acm.org/ft_gateway.cfm?id=512284&type=pdf&coll=ACM&dl=ACM&CFID=53944972&CFTOKEN=50966673">Algorithm
+232, CACM 21(4), 1964</a>).
+</ol>
+As a minimum the following opeartions should be supported:
+<tt>MakeHeap</tt>, <tt>FindMin</tt>, <tt>Insert</tt>,
+<tt>DeleteMin</tt>, and <tt>DecreaseKey</tt>.
+<li>Argue about the <em>worst-case</em> (as opposed to amortized)
+time bounds for each of the operations
+of Fibonnacci Heaps and binary heaps.
+
+<li> Design and perform experiments where you try to measure the
+running time and number of comparisons of the operations for both
+priority queue implementations.
+
+<li> Implement <a
+href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm">Dijkstra's
+algorithm</a> for the single-source shortest path problem for a
+weighted graph with non-negative edge-weigths, such that is can switch
+between the two priority queue implementations.
+
+<li> Describe families of graphs where Dijkstra's algorithm performs
+many respectively few <tt>DecreaseKey</tt> operations.
+
+<li> Perform experiments on your implementation of Dijksta's algorithm
+- in particular, try to observe if the version using Fibonacci heaps
+achieves an improved performance because of the amortized O(1) time
+<tt>DecreaseKey</tt> operation.
+
+</ol>
+
+<p>
+The project should be documented in a report. The report should document your
+theoretical considerations, implementation, experiment design and
+present your experimental results.
+</p>
+
+<p>
+Implementations should be done in C or C++. 
+</p>
+
+<p>
+<strong>Note:</strong> The evaluation of the report and implementation will be part of the final grade.
+</p>
+
+<h3>Hints</h3>
+
+<ul>
+
+<li>
+There are quite a number of UNIX commands to time the execution of a
+program, among these <tt>time</tt> and <tt>timex</tt>. Read the man
+page for their usage. In some shells (e.g. <tt>csh</tt>), there is
+also a built-in version of <tt>time</tt> - read the man page for the
+shell for information on this.  There are also corresponding C library
+routines called times, <tt>getrusage</tt>, and <tt>gettimeofday</tt>
+(which also have man pages). The availability may differ from machine
+to machine, though.  It is part of the project to consider how to best
+time the execution of your programs.
+
+<li>
+Computing random numbers is expensive.
+
+<li>
+Make graphs of your results, e.g. using <a
+href="http://www.gnuplot.info/">gnuplot</a>.
+
+<li>
+Run the program a suitable number of times for each input size and use
+the average running time. This should compensate fluctuations due to
+other processes.
+
+<li>
+To perform several different executions, it is useful to have a script
+or meta-program that performs all the executions.
+
+<li>
+Try to write programs that automatically checks if your algorithms and
+data structures work correctly.
+
+</ul>
+
+</div>
+
+</body>
+</html>

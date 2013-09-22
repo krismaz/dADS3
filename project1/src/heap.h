@@ -19,7 +19,8 @@ class Heap
 	private:
 		Node<T>* *array;
 		int size;
-		int max;  
+		int max;
+		unsigned long comparisons;
 		void print(const char *);
 		void swap(int, int);
 		void fixUp(int);
@@ -33,6 +34,8 @@ class Heap
 		Node<T>* FindMin();
 		bool IsEmpty();
 		bool DecreaseKey(Node<T>*,int);
+		void resetComparisons();
+		unsigned long getComparisons();
 };
 
 
@@ -67,9 +70,11 @@ void Heap<T>::fixUp(int k)
 {
 	while (k > 1 && more(array[k/2], array[k]))
 	{
+		comparisons++;
 		swap(k, k/2);
 		k = k/2;
 	}
+	comparisons++; //one uncounted comparison was done to reach this
 }
 
 
@@ -83,8 +88,13 @@ void Heap<T>::fixDown(int k, int N)
 	while (2*k <= N)
 	{
 		j = 2*k;
+
+		comparisons++;
 		if (j < N && more(array[j], array[j+1])) j++;
+
+		comparisons++;
 		if (!more(array[k], array[j])) break;
+
 		swap(k, j); 
 		k = j;
 	}
@@ -92,7 +102,7 @@ void Heap<T>::fixDown(int k, int N)
 
 
 template <class T>
-Heap<T>::Heap(int maxSize) : array(new Node<T>* [maxSize+1]), size(0), max(maxSize)
+Heap<T>::Heap(int maxSize) : array(new Node<T>* [maxSize+1]), size(0), max(maxSize), comparisons(0)
 {
 	print("Init");
 }
@@ -102,6 +112,19 @@ Heap<T>::~Heap()
 {
 	delete[] array;
 }
+
+template <class T>
+void Heap<T>::resetComparisons()
+{
+	comparisons = 0;
+}
+
+template <class T>
+unsigned long Heap<T>::getComparisons()
+{
+	return comparisons;
+}
+
 
 template <class T>
 Node<T>* Heap<T>::Insert(int k, T v)
