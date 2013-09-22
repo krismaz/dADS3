@@ -30,6 +30,7 @@ class Heap
 		~Heap();
 		Node<T>* Insert(int, T);
 		Node<T>* DeleteMin();
+		Node<T>* FindMin();
 		bool IsEmpty();
 		bool DecreaseKey(Node<T>*,int);
 };
@@ -123,9 +124,15 @@ Node<T>* Heap<T>::DeleteMin()
 {
 	print("Pre-DeleteMin");
 	swap(1, size); 
-	fixDown( 1, size-1);
+	fixDown(1, size-1);
 	print("Post-DeleteMin"); 
 	return array[size--];
+}
+
+template <class T>
+Node<T>* Heap<T>::FindMin()
+{
+	return array[1];
 }
 
 template <class T>

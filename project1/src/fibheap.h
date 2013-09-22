@@ -46,6 +46,7 @@ class FibHeap
 		FibHeap(int);
 		FibNode<T>* Insert(int, T);
 		FibNode<T>* DeleteMin();
+		FibNode<T>* FindMin();
 		bool DecreaseKey(FibNode<T>*, int);
 		bool IsEmpty();
 };
@@ -166,6 +167,12 @@ FibNode<T>* FibHeap<T>::DeleteMin()
 		size--;
 	}
 	return n;
+}
+
+template <class T>
+FibNode<T>* FibHeap<T>::FindMin()
+{
+	return min;
 }
 
 int maxDegree(int n)
