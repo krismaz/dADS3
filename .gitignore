@@ -17,5 +17,10 @@
 *.sublime-project
 *.sublime-workspace
 
+*.aux
+*.dvi
+*.toc
+*.synctex.gz
+
 bin/
 obj/
