@@ -1,37 +1,36 @@
-\section{Binary Heap running times}
-
-\subsection{MakeHeap}
+\section{Theoretical Worst-case Running Times}
+\subsection{Binary Heaps}
+\subsubsection{MakeHeap}
 Constructing an empty Binary Heap requires only a constant amount of work. If we look at the heap as a graph of nodes, we simply need to specify that the size is 0 and that there is no root. As such, this operation will be $O(1)$.
 
 Note that an array-backed, Binary Heap will need to initialize an array of size $O(n)$, which might not be a constant-time operation, depending on the underlying hardware and operating system.
 
-\subsection{FindMin}
+\subsubsection{FindMin}
 Finding the minimum in an Binary Heap is a simple matter of locating the root of the heap. This will either be stored as a pointer in the heap, or, in the case of an array-backed heap, at the start of the array. As such, the operation is $O(1)$.
 
-\subsection{Insert}
+\subsubsection{Insert}
 Inserting an element in a Binary Heap is done by inserting the element at the first free position at the bottom of the heap and bubbling it up through the tree by swapping it with its parent until it is at the correct position. Since we perform only a constant amount of operations at each level of the heap, and the heap is logarithmic in height, this operation take $O(\log (n))$ time.
 
-\subsection{DeleteMin}
-%CONTINUE HERE
-Deleting the minimum element of a Binary Heap is done by swapping the root and the last element of the heap, removing the last element (the previous root), and swapping the new root with its largest child until it is at the correct position int the heap. Much like the Insert operation, we perform only a constant amount of work for each level of the heap, and this makes the operation take $O(\log (n))$ time.
+\subsubsection{DeleteMin}
+Deleting the minimum element of a Binary Heap is done by swapping the root and the last element of the heap, removing the last element (the previous root), and swapping the new root with its largest child until it is at the correct position in the heap. Much like the Insert operation, we perform only a constant amount of work for each level of the heap, and this makes the operation take $O(\log (n))$ time.
 
-\subsection{DecreaseKey}
-Decreasing a key in a Binary Heap can be done by decreasing the key value of the specified node, and repeatetly swapping it with its parents until it is at the correct position in the heap for its new value. Since this is the same complexity as an insert, it takes $O(\log (n))$ time.
+\subsubsection{DecreaseKey}
+Decreasing a key in a Binary Heap can be done by decreasing the key value of the specified node, then bubbling it up in the tree by repeatedly swapping it with its parents as long as the parent has higher key. Since this is the same complexity as an insert, it takes $O(\log (n))$ time.
 
 
-\section{Fibonacci Heap running times}
+\subsection{Fibonacci Heap}
 
-\subsection{MakeHeap}
+\subsubsection{MakeHeap}
 Initializing a Fibonacci heap is a matter of setting a few variables to their default values, such as setting the size to zero, the root list to an empty list and no value for the minimum node. This can be done in $O(1)$ time.
 
-\subsection{FindMin}
+\subsubsection{FindMin}
 A Fibonacci Heap keeps a pointer to the minimum element at all times. This makes finding the minimum element an $O(1)$ operation.
 
-\subsection{Insert}
+\subsubsection{Insert}
 Inserting an element into a Fibonacci Heap is done is done by creating a new node, and appending it to the root list. If the root list is a data structure that supports inserts in constant time, this can be done in $O(1)$ time.
 
-\subsection{DeleteMin}
-Deleting the minimum of a Fibonacci Heap is done by adding all of the minimum nodes children to the root list, removing the minimum, and then continously linking root nodes until only root node of each degree exists. After this, we look through the root list, and set the minimum to be the root with the lowest key.
+\subsubsection{DeleteMin}
+Deleting the minimum of a Fibonacci Heap is done by adding all of the minimum nodes children to the root list, removing the minimum, and then continuously linking root nodes until only root node of each degree exists. After this, we look through the root list, and set the minimum to be the root with the lowest key.
 
 This leads to the following time requirements. 
 
@@ -44,7 +43,7 @@ This leads to the following time requirements.
 
 This gives us a total worst case running time of the DeleteMin operation of $O(n)$ time.
 
-\subsection{DecreaseKey}
-Decreasing the key of a node in a Fibonacci Heap, is done by decreasing the key of the node, and removing it from the child list of the parent, and adding it to the root list, we then continue to do this for the parent as long as we keep encountering marked parents, and mark the final, non-marked, parent we encounter.
+\subsubsection{DecreaseKey}
+Decreasing the key of a node in a Fibonacci Heap is done by decreasing the key of the node and removing it from the child list of the parent, then adding it to the root list. We then continue to do this for the parent as long as we keep encountering marked parents, and mark the final, non-marked, parent we encounter.
 
 In the worst case this requires us to traverse all the way up to the root of the tree our node belonged to. Note that the height of a tree is limited by the degree of its root, which is at most logarithmic. This means that the operation takes at most $O(\log (n))$ time.

@@ -21,6 +21,7 @@
 *.dvi
 *.toc
 *.synctex.gz
+*.log
 
 bin/
 obj/
