@@ -110,4 +110,70 @@ tuple<float, unsigned long long> TestDecreaseKey(int n)
 	// RETURN RESULT
 	return result;
 }
+
+//Dijkstra test methods
+
+template<typename H, typename N>
+float TestDijkstra(int structure, int NodeNumber){
+
+	DijkstraNode ** ds = new DijkstraNode*[NodeNumber]();
+		
+ 	if(structure == 1){//Simple linear structure
+	 	ds[NodeNumber-1] = new DijkstraNode();
+
+	 	//Every node is connected to next node, with distance 100 + 2*(NodeNumber-i).
+		for(int i = NodeNumber-2; i>=0; i--)
+	 	{
+	 		ds[i] = new DijkstraNode();
+	 		ds[i] -> Id = i;
+	 		int distance = i; //100 + 2*(NodeNumber-i);
+	 		ds[i]->Neighbours->push_front(pair<int, DijkstraNode*>(distance, ds[i+1])); //Distance=100 + 2*(NodeNumber-i) and Neighbour is next node.
+	 	}
+	}
+
+	if(structure == 2){//Complex structure
+		
+		//Create nodes
+		for(int i = 0; i<NodeNumber; i++)
+	 	{
+	 		ds[i] = new DijkstraNode();
+	 		ds[i] -> Id = i;	 		
+	 	}
+
+	 	//Create neighbour connections
+	 	for(int i = NodeNumber-3; i>=0; i--) //i=0
+	 	{
+	 	  for(int j = i+2;j<NodeNumber; j++) //j=2
+	 	  {
+	 		int dist = j; //100 + 2*(NodeNumber-i); //distance between nodes
+
+	 		if(dist<0) //If negative distance between nodes, failure
+	 		{
+	 		  cout << "Failure; Negative dist" << endl;
+	 		  exit(1);
+	 		}
+
+	 		if(i == 0){
+				ds[i]->Neighbours->push_front(pair<int, DijkstraNode*>(dist, ds[1]));
+	 		}
+
+	 		ds[i]->Neighbours->push_front(pair<int, DijkstraNode*>(dist, ds[j])); //node 997 has node 999 as neighbour.
+	 	  }
+	 	}
+	}
+
+	clock_t t = clock();
+ 	Dijkstra<H, N>(ds, NodeNumber);
+ 	t = clock() - t;
+ 	float runTime = (float)t/CLOCKS_PER_SEC;
+ 	
+ 	delete[] ds;
+
+ 	return runTime;
+
+
+}
+
+
+
 #endif
