@@ -35,3 +35,8 @@ We can see that the binary heap spends most comparisons in its decreasekey opera
 
 Also note the axis: even though the fibonacci heap does a lot of comparisons when doing deletemin, it is still less than what the binary heap does with the same amount of elements.
 
+\subsection{Conclusions from the running times}
+From our data, we see that our implemented data structures perform as expected from theoretical analysis, with the fibonacci heap heavily outperforming the  binary heap on inserts and decreasekey, while being somewhat slower on deletes, due to being more complex in  general.
+Note that one of the reasons why the fibonacci heap performs exceedingly well on decreasekey is that the tree structures are never constructed by a deletemin, instead the entire heap is one huge list of single nodes. 
+
+
