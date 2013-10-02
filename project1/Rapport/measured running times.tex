@@ -1,6 +1,15 @@
 \section{Single Operation Experiments}
 We have attempted to experimentally determine the running times, or rather, the difference in running time of our implementations of \verb#Insert#, \verb#DeleteMin# and \verb#DecreaseKey# in the two types of heaps. We have done so by running each operation 5, 10, 15, 20, 25, 30 and 35 million times on each type of heap. We have also counted the number of comparisons done by each heap for the operations.
 
+\subsection{Computer specs}
+The tests for the heap running times were run on a computer with the following specs:
+
+\begin{description}
+\item[CPU:] Intel i7 quadcore 2.67GHz
+\item[RAM:] 6GB
+\item[Operating System:] Windows 7 Professional 
+\end{description}
+
 \subsection{Running Times}
 We have measured the running time using the difference of two calls to \verb#clock()#, one right before and one right after the experiment, converting into seconds by division with CLOCKS\_PER\_SEC.
 
