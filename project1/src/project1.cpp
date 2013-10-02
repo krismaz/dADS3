@@ -3,6 +3,7 @@
 #include "fibheap.h"
 #include "dijkstras.h"
 #include "tests.h"
+#include <string>
 
 
 using namespace std;
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
 	string heap = argv[2];
 	int operations = atoi(argv[3]); //For Dijkstra this is N.
 	int structure = atoi(argv[4]); //1=simple structure, 2=complex structure 
-	float runTime = -1.0;
+	float runTime = 0.0;
 	unsigned long long comparisons = 0;
 
 	if(test == "insert") {
@@ -56,13 +57,16 @@ int main(int argc, char *argv[]) {
 			cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
 		}
 	} else if(test == "dijkstra") {
-		if(heap == "binary") {
-			runTime = TestDijkstra<Heap<DijkstraNode*>, Node<DijkstraNode*>>(structure, operations);
-		} else if(heap == "fibonacci") {
-			runTime = TestDijkstra<FibHeap<DijkstraNode*>, FibNode<DijkstraNode*>>(structure, operations);
-		} else {
-			cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
-		}		
+    for(int i = 0; i < 5; i++)
+    {
+		  if(heap == "binary") { 
+		  	runTime += TestDijkstra<Heap<DijkstraNode*>, Node<DijkstraNode*>>(structure, operations);
+	  	} else if(heap == "fibonacci") {
+			  runTime += TestDijkstra<FibHeap<DijkstraNode*>, FibNode<DijkstraNode*>>(structure, operations);
+		  } else {
+			  cout << "Invalid argument: " << heap << ". Must be 'binary' or 'fibonacci'" << endl;
+		  }	
+    }
 	} else {
 		cout << "Invalid argument: " << test << ". Must be 'insert', 'deletemin', 'decreasekey' or 'dijkstra'" << endl;
 	}

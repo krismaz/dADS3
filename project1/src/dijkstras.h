@@ -1,6 +1,6 @@
 #ifndef DIJKSTRAS_H
 #define DIJKSTRAS_H
-#include <forward_list>
+#include <vector>
 #include <climits>
 #include "heap.h"
 #include "fibheap.h"
@@ -11,13 +11,13 @@ struct DijkstraNode
 	int Id;
 	int Dist;
 	DijkstraNode * Pred;
-	forward_list<pair<int, DijkstraNode*>>* Neighbours;
+	vector<pair<int, DijkstraNode*>>* Neighbours;
 	void* NodeData;
 	bool Visited;
 
 	DijkstraNode()
 	{
-		Neighbours = new forward_list<pair<int, DijkstraNode*>>();
+		Neighbours = new vector<pair<int, DijkstraNode*>>();
 		Visited = false;
 		Pred = NULL;
 	}
