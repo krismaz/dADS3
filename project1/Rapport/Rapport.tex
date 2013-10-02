@@ -16,20 +16,12 @@ Kris V. Ebbesen (20094539)
 \usepackage{graphicx}
 \begin{document}
 \maketitle
-
+\includegraphics[width=\textwidth]{graphs/homer.jpg}
 \newpage
 \tableofcontents
 \newpage
 
-\section{Introduction}
-
-Heaps have many applications, as  simple priority queues, for graph algorithms, and even scheduling. As such, is is important to chose not only a fast heap, but the right heap for the job.
-
-In this project, we implement and test two distinct types of heap, the binary heap and the fibonacci heap. The binary heap is very simple to understands, and has generally low constant factors. The fibonacci heap on the other hand is somewhat more complicated, and has quite large constant factors involved in the running time, but makes up for this by having inserts and decreasekeys being amortized constant time.
-
-Finally, we see how this affects Dijkstras single-source shortest-path algorithm, on data sets that favour each of the heaps, and try to show a that choosing the correct heap indeed does make a marked difference in performance.  
-
-
+\input{intro}
 
 \input{"heap implementation details"}
 
