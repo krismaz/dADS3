@@ -29,19 +29,19 @@ unsigned int value(unsigned int high, unsigned int low, unsigned int bits)
   return low | (high << (bits/2+bits%2));
 }
 
+template <int bits>
 class vEBTree
 {
 private:
-  unsigned int bits;
   unsigned int min;
   unsigned int max;
-  vEBTree * top;
-  vEBTree ** bottom;
-  void emptyInsert(unsigned int x);
+  vEBTree<bits/2> * top;
+  vEBTree<halfUp(bits)> ** bottom;
 public:
+  void emptyInsert(unsigned int x);
   unsigned int Min() { return min; }
   unsigned int Max() { return max; }
-  vEBTree(unsigned int b);
+  vEBTree();
   ~vEBTree();
   bool Member(unsigned int x);
   unsigned int Predecessor(unsigned int x);
@@ -50,20 +50,22 @@ public:
   unsigned int DeleteMin();
 };
 
-vEBTree::vEBTree(unsigned int b) : bits(b), min(-1), max(-1) 
+template <int bits>
+vEBTree<bits>::vEBTree() : min(-1), max(-1) 
 {
   if(bits!=1)
   {
-    top = new vEBTree(b/2);
-    bottom = new vEBTree*[1<<(b/2)];
-    for(int i = 0; i < 1<<(b/2); i++)
+    top = new vEBTree<bits/2>();
+    bottom = new vEBTree<halfUp(bits)>*[1<<(bits/2)];
+    for(int i = 0; i < 1<<(bits/2); i++)
     {
-      bottom[i] = new vEBTree(halfUp(b));
+      bottom[i] = new vEBTree<halfUp(bits)>();
     }
   }
 }
 
-vEBTree::~vEBTree()
+template <int bits>
+vEBTree<bits>::~vEBTree()
 {
   if(bits==1) return;
 
@@ -75,7 +77,8 @@ vEBTree::~vEBTree()
   delete bottom;
 }
 
-bool vEBTree::Member(unsigned int x)
+template <int bits>
+bool vEBTree<bits>::Member(unsigned int x)
 {
   assertLimit(x, bits);
   if(x == min || x == max)
@@ -85,7 +88,8 @@ bool vEBTree::Member(unsigned int x)
   else return bottom[high(x, bits)]->Member(low(x, bits));
 }
 
-unsigned int vEBTree::Predecessor(unsigned int x)
+template <int bits>
+unsigned int vEBTree<bits>::Predecessor(unsigned int x)
 {
   assertLimit(x, bits);
   if(bits == 1)
@@ -128,14 +132,17 @@ unsigned int vEBTree::Predecessor(unsigned int x)
   }
 }
 
-void vEBTree::emptyInsert(unsigned int x)
+template <int bits>
+void vEBTree<bits>::emptyInsert(unsigned int x)
 {
   assert(min == -1);
   min = max = x;
 }
 
-void vEBTree::Insert(unsigned int x)
+template <int bits>
+void vEBTree<bits>::Insert(unsigned int x)
 {
+  assert(!Member(x));
   assertLimit(x, bits);
   if(min == -1)
   {
@@ -166,7 +173,8 @@ void vEBTree::Insert(unsigned int x)
   }
 }
 
-void vEBTree::Delete(unsigned int x)
+template <int bits>
+void vEBTree<bits>::Delete(unsigned int x)
 {
   assert(Member(x));
   assertLimit(x, bits);
@@ -218,7 +226,8 @@ void vEBTree::Delete(unsigned int x)
 
 }
 
-unsigned int vEBTree::DeleteMin()
+template <int bits>
+unsigned int vEBTree<bits>::DeleteMin()
 {
   assert(min != -1);
   auto res = min;
