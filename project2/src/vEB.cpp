@@ -1,45 +1,57 @@
 // vEB.cpp : Defines the entry point for the console application.
 //
 
-#include "veb.h"
+#include "bitsmartveb.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <assert.h>
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-  //cout << value(high(379,9),low(379,9),9);
-  auto veb = new vEBTree<16>();
-  veb->Insert(67);
-  veb->Insert(7);
-  veb->Insert(12);
-  veb->Insert(3323);
-  veb->Insert(11132);
-  veb->Insert(13112);
-  veb->Insert(11212);
-  veb->Insert(11122);
-  veb->Insert(7133);
-  veb->Insert(132);
-  veb->Insert(33112);
-  veb->Insert(312);
-  veb->Insert(12122);
-  veb->Insert(71);
-  veb->Insert(122);
-  veb->Delete(12);
-  veb->Insert(16);
-  cout << veb->Predecessor(40000) << "\n";
-  cout << veb->Predecessor(86) << "\n";
-  veb->Delete(67);
-  cout << veb->Predecessor(86)<< "\n";;
-  veb->Delete(7);
-  while(veb->Min() != -1)
+  assert(sizeof(unsigned int)==4);
+
+  /*
+  vEBTree<16> tree;
+  for(int i = 0; i < 1<<15; i++)
   {
-    cout << veb->DeleteMin() << "\n";;
+    tree.Insert(i);
   }
+  while(tree.Min() != -1)
+  {
+    cout << tree.DeleteMin() << endl;
+  }
+  */
+
+  BitSmartvEBTree<24> tree;
+  tree.Insert(89);
+  tree.Insert(189);
+  tree.Insert(289);
+  tree.Insert(9);
+  tree.Insert(8);
+
+  tree.Delete(289);
+  tree.Delete(9);
+  
+  cout << tree.Member(89) << endl;
+  cout << tree.Member(189) << endl;
+  cout << tree.Member(289) << endl;
+  cout << tree.Member(9) << endl;
+  cout << tree.Member(8) << endl;
+
+  cout << tree.Min() << endl;
+  cout << tree.Max() << endl;
+
+  cout << tree.Predecessor(18) << endl;
+  cout << tree.Predecessor(180) << endl;
+  cout << tree.Predecessor(1800) << endl;
+  cout << tree.Predecessor(1) << endl;
+
   system("PAUSE");
-  delete veb;
+
 
 	return 0;
 }
