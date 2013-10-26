@@ -2,7 +2,7 @@
 #define BITSMARTVEB_H
 
 //Magical Bit based vEB tree. Whenever we hit a tree that can bee stored in 32-bit integers, just use bitwise operation on an uint32 instead. Might be faster,and saves a truckload of memory
-//Note: Work in progress
+
 #include <intrin.h> //Someone should find the one for lunix
 #include "veb.h"
 void BitSmartInsert(unsigned int &mask, unsigned int value)
@@ -24,6 +24,14 @@ bool BitSmartMember(unsigned int mask, unsigned int value)
 unsigned int BitSmartPredecessor(unsigned int mask, unsigned int value)
 {
   mask = mask & ((1<<value)-1);
+  unsigned long res = 0;
+  if(_BitScanReverse(&res,mask)==0) //LULULULUL lunix not werk
+    return  -1;
+  return res;
+}
+
+unsigned int BitSmartMax(unsigned int mask)
+{
   unsigned long res = 0;
   if(_BitScanReverse(&res,mask)==0) //LULULULUL lunix not werk
     return  -1;
@@ -53,9 +61,22 @@ private:
   BitSmartvEBTree<halfUp(bits)> ** bottom;
 public:
   void emptyInsert(unsigned int x);
-  //TODO: use bitsmap min and max
-  unsigned int Min() { return min; }
-  unsigned int Max() { return max; }
+  unsigned int Min() 
+  { 
+    if(bits<=5)
+    {
+      return BitSmartMin(mask);
+    }
+    return min; 
+  }
+  unsigned int Max() 
+  { 
+    if(bits<=5)
+    {
+      return BitSmartMax(mask);
+    }
+    return max; 
+  }
   BitSmartvEBTree();
   ~BitSmartvEBTree();
   bool Member(unsigned int x);
@@ -96,10 +117,10 @@ template <int bits>
 bool BitSmartvEBTree<bits>::Member(unsigned int x)
 {
   assertLimit(x, bits);
-  if(x == min || x == max)
-    return true;
-  else if (bits <=5)
+  if (bits <=5)
     return BitSmartMember(mask, x);
+  else if (x == min || x == max)
+    return true;
   else return bottom[high(x, bits)]->Member(low(x, bits));
 }
 
@@ -107,14 +128,13 @@ template <int bits>
 unsigned int BitSmartvEBTree<bits>::Predecessor(unsigned int x)
 {
   assertLimit(x, bits);
-  if(max != -1 && x > max)
+  if(bits <= 5)
+  {
+    return BitSmartPredecessor(mask, x);
+  }
+  else if(max != -1 && x > max)
   {
     return max;
-  }
-  else if(bits <= 5)
-  {
-    //TODO:Check MIN
-    return BitSmartPredecessor(mask, x);
   }
   else 
   {
@@ -147,6 +167,11 @@ unsigned int BitSmartvEBTree<bits>::Predecessor(unsigned int x)
 template <int bits>
 void BitSmartvEBTree<bits>::emptyInsert(unsigned int x)
 {
+  if(bits <= 5)
+  {
+    BitSmartInsert(mask,x);
+    return;
+  }
   assert(min == -1);
   min = max = x;
 }
@@ -156,6 +181,11 @@ void BitSmartvEBTree<bits>::Insert(unsigned int x)
 {
   assert(!Member(x));
   assertLimit(x, bits);
+  if(bits <= 5)
+  {
+    BitSmartInsert(mask,x);
+    return;
+  }
   if(min == -1)
   {
     emptyInsert(x);
@@ -167,12 +197,6 @@ void BitSmartvEBTree<bits>::Insert(unsigned int x)
     x = min;
     min = tmp;
   }
-  if(bits <= 5)
-  {
-    //TODO:Move Further up
-    BitSmartInsert(mask,x);
-  }
-  else
   {
     if(bottom[high(x,bits)]->Min() == -1)
     {
@@ -195,28 +219,14 @@ void BitSmartvEBTree<bits>::Delete(unsigned int x)
 {
   assert(Member(x));
   assertLimit(x, bits);
+  if(bits <= 5)
+  {
+    BitSmartDelete(mask, x);
+    return;
+  }
   if(min==max)
   {
     min = max = -1;
-    return;
-  }
-  if(bits <= 5)
-  {
-    //TODO, just use mask
-    if(x == max)
-    {
-      max = BitSmartPredecessor(mask, x);
-      if(max == -1)
-      {
-        max = min;
-      }
-    }
-    if(x==min)
-    {
-      x = BitSmartMin(mask);
-      min = x;
-    }
-    BitSmartDelete(mask, x);
     return;
   }
   if(x==min)
@@ -253,7 +263,7 @@ template <int bits>
 unsigned int BitSmartvEBTree<bits>::DeleteMin()
 {
   assert(min != -1);
-  auto res = min;
+  auto res = Min();
   Delete(res);
   return res;
 }
