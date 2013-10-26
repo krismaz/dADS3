@@ -2,7 +2,7 @@
 #define BITSMARTVEB_H
 
 //Magical Bit based vEB tree. Whenever we hit a tree that can bee stored in 32-bit integers, just use bitwise operation on an uint32 instead. Might be faster,and saves a truckload of memory
-
+//Note: Work in progress
 #include <intrin.h> //Someone should find the one for lunix
 #include "veb.h"
 void BitSmartInsert(unsigned int &mask, unsigned int value)
@@ -53,6 +53,7 @@ private:
   BitSmartvEBTree<halfUp(bits)> ** bottom;
 public:
   void emptyInsert(unsigned int x);
+  //TODO: use bitsmap min and max
   unsigned int Min() { return min; }
   unsigned int Max() { return max; }
   BitSmartvEBTree();
@@ -112,6 +113,7 @@ unsigned int BitSmartvEBTree<bits>::Predecessor(unsigned int x)
   }
   else if(bits <= 5)
   {
+    //TODO:Check MIN
     return BitSmartPredecessor(mask, x);
   }
   else 
@@ -167,6 +169,7 @@ void BitSmartvEBTree<bits>::Insert(unsigned int x)
   }
   if(bits <= 5)
   {
+    //TODO:Move Further up
     BitSmartInsert(mask,x);
   }
   else
@@ -199,6 +202,7 @@ void BitSmartvEBTree<bits>::Delete(unsigned int x)
   }
   if(bits <= 5)
   {
+    //TODO, just use mask
     if(x == max)
     {
       max = BitSmartPredecessor(mask, x);
