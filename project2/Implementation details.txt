@@ -1,0 +1,38 @@
+\section{Implementation Details}
+
+\subsection{The Basic Van Emde Boas Tree}
+
+The Van Emde Boas Tree was implemented following the description in Cormon et al. (TODO: Cormen link). This version of the tree is fairly basic, but provides the full features of the Van Emde Boas tree.
+
+A few design choices of note are:
+
+\begin{description}
+\item[The Base Case] When the Van Emde Boas Tree reaches 1 bit required for its universe (a 2-element universe), we skip most of the normal operations done in the tree, and maintain the tree fully in the \texttt{min} and \texttt{max} values of the tree.
+\item[Element Data Type] Since we need to support integers of up to 24 bit, we store data values as unsigned 32 bit integers.
+\item[The \texttt{null} Element] When we wish to signal that the \texttt{min} or \texttt{max} element is empty, we set its value to -1, which when converted to an unsigned integer will be the maximum value possible, and outside of the 24 bit universe.
+\item[Specifying Universe Size] When the Van Emde Boas recieves the information about the required bits for its input, is does it by a templated variable. This ensures full compiler optimization of branches based on bit size, and saves storage space.
+\item[Splitting the Elements] When elements are split into a high and low part, they are done so by selecting the high and low half of the bits. In case of an uneven amount of bits, the high part receives the most bits.
+\item[Input Validation] When testing the tree, assertions check that we do not specify values that are outside of the universe. These assertions are disabled when doing performance testing. 
+\end{description}
+
+\subsection{Making a Heap based on the Van Emde Boas Tree}
+
+Implementing a heap on top of a Van Emde Boas Tree is fairly simple. Since we already know that a Van Emde Boas Tree requires storage space linear to the universe size, we simply allocate an array of the size of the universe, and use this for storage, while using the tree to store any keys.
+
+Now most heap operations can be performed by doing a single operation on the Van Emde Boas Tree, and a single read or write on the array.
+
+Note that DecreaseKeys are not supported, since they make little sense on a Van Emde Boas Tree. Instead, if one wishes to decrease a key, simply do an insert and a delete.
+
+\subsection{Small Universe Van Emde Boas Trees}
+
+When the universe size of a Van Emde Boas Tree falls below 6 bits, we can store the entire tree in a single 32 bit integer. Any operation on the tree can now be performed using a constant number of bitwise operations, assuming we can find the first and last bit set in constant time. Luckily, most processors support these operations.
+
+This should save not only space, but also execution time.
+
+Note that we store the 32-bit integer in the space normally holding the pointer to the top tree, to save memory. Also, since we specify the number of bits required for the universe, we get full compiler optimization for the branches determining whether or not to use integer instead of the normal Van Emde Boas tree operations.
+
+\subsection{Future Improvements}
+
+Our Van Emde Boas Tree lacks an important optimization often used in practical implementations of the data structure, which is the on-demand storage of the subtrees. Basically, the idea behind this optimization is to only store subtrees that actually contain elements. This is done by keep a map on the subtrees rather than an array, and adding or removing trees as needed.
+
+This however requires HashMaps that grow and shrink as needed, which the unordered sets of the standard library does not. Also, this might make the worst-case performance of the tree worse, if the map does not do these operations in constant worst-case time.
