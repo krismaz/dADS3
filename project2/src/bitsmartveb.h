@@ -1,9 +1,22 @@
 #ifndef BITSMARTVEB_H
 #define BITSMARTVEB_H
 
+#include <iostream>
+using namespace std;
+
 //Magical Bit based vEB tree. Whenever we hit a tree that can bee stored in 32-bit integers, just use bitwise operation on an uint32 instead. Might be faster,and saves a truckload of memory
 
+#ifdef _WIN32
 #include <intrin.h> //Someone should find the one for lunix
+#define msb unsigned long res = 0; _BitScanReverse(&res,mask);
+#define lsb unsigned long res = 0; _BitScanForward(&res,mask);
+#endif
+
+#ifndef _WIN32
+#define msb unsigned int res = __builtin_clz(mask)^0x1F;
+#define lsb unsigned int res = __builtin_ctz(mask);
+#endif
+
 #include "veb.h"
 void BitSmartInsert(unsigned int &mask, unsigned int value)
 {
@@ -23,26 +36,23 @@ bool BitSmartMember(unsigned int mask, unsigned int value)
 
 unsigned int BitSmartPredecessor(unsigned int mask, unsigned int value)
 {
+  if(mask == 0) return -1;
   mask = mask & ((1<<value)-1);
-  unsigned long res = 0;
-  if(_BitScanReverse(&res,mask)==0) //LULULULUL lunix not werk
-    return  -1;
+  msb
   return res;
 }
 
 unsigned int BitSmartMax(unsigned int mask)
 {
-  unsigned long res = 0;
-  if(_BitScanReverse(&res,mask)==0) //LULULULUL lunix not werk
-    return  -1;
+  if(mask == 0) return -1;
+  msb
   return res;
 }
 
 unsigned int BitSmartMin(unsigned int mask)
 {
-  unsigned long res = 0;
-  if(_BitScanForward(&res,mask)==0) //LULULULUL lunix not werk
-    return  -1;
+  if(mask == 0) return -1;
+  lsb
   return res;
 }
 

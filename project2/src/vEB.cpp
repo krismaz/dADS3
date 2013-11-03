@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
   cout << tree.Predecessor(1800) << endl;
   cout << tree.Predecessor(1) << endl;
 
-  system("PAUSE");
+  // system("PAUSE");
 
 
 	return 0;
