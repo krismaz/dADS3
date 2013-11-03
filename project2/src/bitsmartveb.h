@@ -13,7 +13,7 @@ using namespace std;
 #endif
 
 #ifndef _WIN32
-#define msb unsigned int res = __builtin_clz(mask)^0x1F;
+#define msb unsigned int res = __builtin_clz(mask)^0x1F; //http://sourceforge.net/p/mingw-w64/bugs/322/
 #define lsb unsigned int res = __builtin_ctz(mask);
 #endif
 

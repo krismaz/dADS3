@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include "vebheap.h"
 
 using namespace std;
 
@@ -25,6 +26,19 @@ int main(int argc, char* argv[])
     cout << tree.DeleteMin() << endl;
   }
   */
+
+  vEBHeap<int, 24, BitSmartvEBTree<24>> heap;
+
+  heap.Insert(32,12);
+  heap.Insert(14,10);
+  heap.Insert(9,100);
+  vEBNode<int> node = heap.DeleteMin();
+  cout << node << endl;
+  node = heap.Predecessor(30);
+  cout << node << endl;
+  return 0;
+
+
 
   BitSmartvEBTree<24> tree;
   tree.Insert(89);
@@ -51,7 +65,6 @@ int main(int argc, char* argv[])
   cout << tree.Predecessor(1) << endl;
 
   // system("PAUSE");
-
 
 	return 0;
 }
