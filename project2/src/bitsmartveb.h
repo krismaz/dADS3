@@ -36,7 +36,7 @@ bool BitSmartMember(unsigned int mask, unsigned int value)
 
 unsigned int BitSmartPredecessor(unsigned int mask, unsigned int value)
 {
-  if(comparisonCount++ && mask == 0) return -1;
+  if(++comparisonCount && mask == 0) return -1;
   mask = mask & ((1<<value)-1);
   msb
   return res;
@@ -44,14 +44,14 @@ unsigned int BitSmartPredecessor(unsigned int mask, unsigned int value)
 
 unsigned int BitSmartMax(unsigned int mask)
 {
-  if(comparisonCount++ && mask == 0) return -1;
+  if(++comparisonCount && mask == 0) return -1;
   msb
   return res;
 }
 
 unsigned int BitSmartMin(unsigned int mask)
 {
-  if(comparisonCount++ && mask == 0) return -1;
+  if(++comparisonCount && mask == 0) return -1;
   lsb
   return res;
 }
@@ -130,7 +130,7 @@ bool BitSmartvEBTree<bits>::Member(unsigned int x)
   assertLimit(x, bits);
   if (bits <= 5) //this is optimized out because bits are templated in
     return BitSmartMember(mask, x);
-  else if ((comparisonCount++ && x == min) || (comparisonCount++ && x == max))
+  else if ((++comparisonCount && x == min) || (++comparisonCount && x == max))
     return true;
   else return bottom[high(x, bits)]->Member(low(x, bits));
 }
@@ -143,14 +143,14 @@ unsigned int BitSmartvEBTree<bits>::Predecessor(unsigned int x)
   {
     return BitSmartPredecessor(mask, x);
   }
-  else if((comparisonCount++ && max != -1) && (comparisonCount++ && x > max))
+  else if((++comparisonCount && max != -1) && (++comparisonCount && x > max))
   {
     return max;
   }
   else 
   {
     auto min_low = bottom[high(x,bits)]->Min();
-    if((comparisonCount++ && min_low != -1) && (comparisonCount++ && low(x,bits) > min_low))
+    if((++comparisonCount && min_low != -1) && (++comparisonCount && low(x,bits) > min_low))
     {
       auto offset = bottom[high(x,bits)]->Predecessor(low(x, bits));
       return value(high(x, bits), offset, bits);
@@ -158,9 +158,9 @@ unsigned int BitSmartvEBTree<bits>::Predecessor(unsigned int x)
     else
     {
       auto low_tree = top->Predecessor(high(x, bits));
-      if((comparisonCount++ && low_tree == -1))
+      if((++comparisonCount && low_tree == -1))
       {
-        if((comparisonCount++ && min != -1) && (comparisonCount++ && x > min))
+        if((++comparisonCount && min != -1) && (++comparisonCount && x > min))
         {
           return min;
         }
@@ -197,19 +197,19 @@ void BitSmartvEBTree<bits>::Insert(unsigned int x)
     BitSmartInsert(mask,x);
     return;
   }
-  if(comparisonCount++ && min == -1)
+  if(++comparisonCount && min == -1)
   {
     emptyInsert(x);
     return;
   }
-  if(comparisonCount++ && x < min)
+  if(++comparisonCount && x < min)
   {
     auto tmp = x;
     x = min;
     min = tmp;
   }
   {
-    if(comparisonCount++ && bottom[high(x,bits)]->Min() == -1)
+    if(++comparisonCount && bottom[high(x,bits)]->Min() == -1)
     {
       top->Insert(high(x,bits));
       bottom[high(x,bits)]->emptyInsert(low(x,bits));
@@ -219,7 +219,7 @@ void BitSmartvEBTree<bits>::Insert(unsigned int x)
       bottom[high(x,bits)]->Insert(low(x,bits));
     }
   }
-  if(comparisonCount++ && x > max)
+  if(++comparisonCount && x > max)
   {
     max = x;
   }
@@ -235,25 +235,25 @@ void BitSmartvEBTree<bits>::Delete(unsigned int x)
     BitSmartDelete(mask, x);
     return;
   }
-  if(comparisonCount++ && min==max)
+  if(++comparisonCount && min==max)
   {
     min = max = -1;
     return;
   }
-  if(comparisonCount++ && x==min)
+  if(++comparisonCount && x==min)
   {
     auto low_tree = top->Min();
     x = value(low_tree, bottom[low_tree]->Min(), bits);
     min = x;
   }
   bottom[high(x,bits)]->Delete(low(x,bits));
-  if(comparisonCount++ && bottom[high(x,bits)]->Min() == -1)
+  if(++comparisonCount && bottom[high(x,bits)]->Min() == -1)
   {
     top->Delete(high(x, bits));
-    if(comparisonCount++ && x == max)
+    if(++comparisonCount && x == max)
     {
       auto high_tree = top->Max();
-      if(comparisonCount++ && high_tree == -1)
+      if(++comparisonCount && high_tree == -1)
       {
         max = min;
       }
@@ -263,7 +263,7 @@ void BitSmartvEBTree<bits>::Delete(unsigned int x)
       }
     }
   }
-  else if(comparisonCount++ && x == max)
+  else if(++comparisonCount && x == max)
   {
     max = value(high(max, bits), bottom[high(x,bits)]->Max(), bits);
   }
