@@ -25,5 +25,7 @@
 *.bbl
 *.blg
 
+*.out
+
 bin/
 obj/
