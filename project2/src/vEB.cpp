@@ -9,6 +9,8 @@
 #include <assert.h>
 #include "vebheap.h"
 
+#define NDEBUG
+
 using namespace std;
 
 int main(int argc, char* argv[])
