@@ -36,6 +36,8 @@ int main(int argc, char* argv[])
   cout << node << endl;
   node = heap.Predecessor(30);
   cout << node << endl;
+
+  cout << comparisonCount << endl;
   return 0;
 
 

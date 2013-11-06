@@ -50,6 +50,8 @@ public:
   unsigned int DeleteMin();
 };
 
+static unsigned long long comparisonCount = 0;
+
 template <int bits>
 vEBTree<bits>::vEBTree() : min(-1), max(-1) 
 {
@@ -81,9 +83,9 @@ template <int bits>
 bool vEBTree<bits>::Member(unsigned int x)
 {
   assertLimit(x, bits);
-  if(x == min || x == max)
+  if((comparisonCount++ && x == min) || (comparisonCount++ && x == max))
     return true;
-  else if (bits == 1)
+  else if (comparisonCount++ && bits == 1)
     return false;
   else return bottom[high(x, bits)]->Member(low(x, bits));
 }
@@ -92,22 +94,22 @@ template <int bits>
 unsigned int vEBTree<bits>::Predecessor(unsigned int x)
 {
   assertLimit(x, bits);
-  if(bits == 1)
+  if(comparisonCount++ && bits == 1)
   {
-    if(x ==1 && min == 0)
+    if((comparisonCount++ && x == 1) && (comparisonCount++ && min == 0))
     {
       return 0;
     }
     else return -1;
   }
-  else if(max != -1 && x > max)
+  else if((comparisonCount++ && max != -1) && (comparisonCount++ && x > max))
   {
     return max;
   }
   else 
   {
     auto min_low = bottom[high(x,bits)]->Min();
-    if(min_low != -1 && low(x,bits) > min_low)
+    if((comparisonCount++ && min_low != -1) && (comparisonCount++ && low(x,bits) > min_low))
     {
       auto offset = bottom[high(x,bits)]->Predecessor(low(x, bits));
       return value(high(x, bits), offset, bits);
@@ -115,9 +117,9 @@ unsigned int vEBTree<bits>::Predecessor(unsigned int x)
     else
     {
       auto low_tree = top->Predecessor(high(x, bits));
-      if(low_tree == -1)
+      if(comparisonCount++ && low_tree == -1)
       {
-        if(min != -1 && x > min)
+        if((comparisonCount++ && min != -1) && (comparisonCount++ && x > min))
         {
           return min;
         }
@@ -144,20 +146,20 @@ void vEBTree<bits>::Insert(unsigned int x)
 {
   assert(!Member(x));
   assertLimit(x, bits);
-  if(min == -1)
+  if(comparisonCount++ && min == -1)
   {
     emptyInsert(x);
     return;
   }
-  if(x < min)
+  if(comparisonCount++ && x < min)
   {
     auto tmp = x;
     x = min;
     min = tmp;
   }
-  if(bits != 1)
+  if(bits != 1) //optimized out
   {
-    if(bottom[high(x,bits)]->Min() == -1)
+    if(comparisonCount++ && bottom[high(x,bits)]->Min() == -1)
     {
       top->Insert(high(x,bits));
       bottom[high(x,bits)]->emptyInsert(low(x,bits));
@@ -167,7 +169,7 @@ void vEBTree<bits>::Insert(unsigned int x)
       bottom[high(x,bits)]->Insert(low(x,bits));
     }
   }
-  if(x>max)
+  if(comparisonCount++ && x > max)
   {
     max = x;
   }
@@ -178,14 +180,14 @@ void vEBTree<bits>::Delete(unsigned int x)
 {
   assert(Member(x));
   assertLimit(x, bits);
-  if(min==max)
+  if(comparisonCount++ && min == max)
   {
     min = max = -1;
     return;
   }
-  if(bits == 1)
+  if(bits == 1) //optimized out
   {
-    if(x == 0)
+    if(comparisonCount++ && x == 0)
     {
       min = 1;
     }
@@ -196,20 +198,20 @@ void vEBTree<bits>::Delete(unsigned int x)
     max = min;
     return;
   }
-  if(x==min)
+  if(comparisonCount++ && x == min)
   {
     auto low_tree = top->Min();
     x = value(low_tree, bottom[low_tree]->Min(), bits);
     min = x;
   }
   bottom[high(x,bits)]->Delete(low(x,bits));
-  if(bottom[high(x,bits)]->Min() == -1)
+  if(comparisonCount++ && bottom[high(x,bits)]->Min() == -1)
   {
     top->Delete(high(x, bits));
-    if(x == max)
+    if(comparisonCount++ && x == max)
     {
       auto high_tree = top->Max();
-      if(high_tree == -1)
+      if(comparisonCount++ && high_tree == -1)
       {
         max = min;
       }
@@ -219,7 +221,7 @@ void vEBTree<bits>::Delete(unsigned int x)
       }
     }
   }
-  else if(x == max)
+  else if(comparisonCount++ && x == max)
   {
     max = value(high(max, bits), bottom[high(x,bits)]->Max(), bits);
   }
