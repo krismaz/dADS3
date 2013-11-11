@@ -1,0 +1,20 @@
+\subsection{Experiment Details}
+
+TODO Jan
+
+\subsection{Expectations}
+
+We expect the Van Emde Boas Trees to perform quite well in terms of speed. Their upper bound on comparisons and general operations of $O(\log (\log U))$, will most likely  make them outperform the more general heaps, especially as data sizes grow.
+
+
+In terms of memory, we known that the Van Emde Boas Trees will use a large constant amount of memory, though we expect the Van Emde Boas tree with bit magic will use a smaller amount of memory than the other heaps as the universe grows full, due to not actually storing the entire value of the elements.
+
+\subsection{Data}
+
+TODO Jan
+
+\subsection{Results}
+
+We see that our experiments behave much as we expected. The Van Emde Boas Tree  based heap are much faster than the ordinary heaps, and using bit magic gives a small, yet significant speed boost. They even outperform Fibonacci Heaps on inserts, which is quite impressive.
+
+In terms of memory we can see that the ordinary Van Emde Boas Tree uses a huge amount of memory, only being surpassed by the Fibonacci Heap at a full universe. The bit magic Van Emde boas tree on the other hand uses a quite acceptable amount of memory, being roughly equal with the other heaps at about 2 million elements.
