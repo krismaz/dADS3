@@ -1,11 +1,26 @@
 \subsection{Experiment Details}
+The tests were run on a laptop using a few scripts to automate the testing and formatting of data. Valgrind with the Massif heap profiler was used to obtain data about the size of memory used during testing. This heap profiling was done in a seperate test run to not affect the running times of the main test.
+Each test was run with various amounts of operations, all powers of 2: $2^{18}=262144$, $2^{19}=524288$, $2^{20}=1048576$, $2^{21}=2097152$, $2^{22}=4194304$, $2^{23}=8388608$ and $2^{24}=16777216$. The number of operations is given to each test as input parameter $n$.
 
-TODO Jan
+\subsubsection{Test Types}
+Three types of test was done:
+\begin{description}
+\item[TestInserts] Testing the running time of Insert operations by measuring the time it takes to insert elements $n-1$ to $0$ in that order.
+\item[TestDeleteMin] Testing the running time of DeleteMin operations by first inserting elements like in the TestInserts test without measuring the time and then running DeleteMin the same amount of times while measuring time.
+\item[TestInterleaved] Testing the running time of interleaved Insert and DeleteMin operations by first inserting elements $n-1$ to $\frac{n-1}{2}$ elements without measuring time, and then interleaved calling DeleteMin and Insert on elements $\frac{n-1}{2}$ to $0$ while measuring time.
+\end{description}
+
+
+\subsubsection{Computer Specs:}
+\begin{tabular}{| r  l |} \hline
+OS: & Ubuntu 13.10 \\ \hline
+CPU: & Intel Core i7-3517U -- Quadcore -- 1.90 GHz \\ \hline
+Memory: & 6 GB\\ \hline
+\end{tabular}
 
 \subsection{Expectations}
 
 We expect the Van Emde Boas Trees to perform quite well in terms of speed. Their upper bound on comparisons and general operations of $O(\log (\log U))$, will most likely  make them outperform the more general heaps, especially as data sizes grow.
-
 
 In terms of memory, we known that the Van Emde Boas Trees will use a large constant amount of memory, though we expect the Van Emde Boas tree with bit magic will use a smaller amount of memory than the other heaps as the universe grows full, due to not actually storing the entire value of the elements.
 
