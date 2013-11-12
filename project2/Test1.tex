@@ -26,7 +26,23 @@ In terms of memory, we known that the Van Emde Boas Trees will use a large const
 
 \subsection{Data}
 
-TODO Jan
+\subsubsection{Running Times}
+\includegraphics[width=\textwidth]{graphs/Inserts.pdf}
+\includegraphics[width=\textwidth]{graphs/DeleteMin.pdf}
+\includegraphics[width=\textwidth]{graphs/Interleaved.pdf}
+
+\subsubsection{Comparisons}
+We have been slightly more aggressive in counting comparisons in our van Emde Boas tree implementation, so we might be under counting the comparisons used in the binary and fibonacci heaps compared to the van Emde Boas heaps.
+\includegraphics[width=\textwidth]{graphs/Inserts_comparisons.pdf}
+\includegraphics[width=\textwidth]{graphs/DeleteMin_comparisons.pdf}
+\includegraphics[width=\textwidth]{graphs/Interleaved_comparisons.pdf}
+
+\subsubsection{Memory}
+\includegraphics[width=\textwidth]{graphs/Inserts_memory.pdf}
+\includegraphics[width=\textwidth]{graphs/DeleteMin_memory.pdf}
+\includegraphics[width=\textwidth]{graphs/Interleaved_memory.pdf}
+
+
 
 \subsection{Results}
 
