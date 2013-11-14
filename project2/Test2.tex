@@ -1,5 +1,5 @@
 \subsection{Red-Black Tree Implementation}
-The c++ standard library contains a \textit{set} datatype as \texttt{std::set} which is implemented using a red-black tree so to ensure no errors in the implementation and to save some time, we decided to use that for our tests. This will also give the red-black tree a better chance at competing with our van Emde Boas tree based search tree as we expect the standard library to be well optimized. We wrote a small class implementing Insert, Remove and Predecessor using a \texttt{std::set}. We also wrote a small class implementing the same, using either our vEB or bitsmart vEB tree as well as the min function to handle the case when there is no predecessor for our query in the interleaved test.
+The c++ standard library contains a \textit{set} datatype as \texttt{std::set} which is implemented using a red-black tree so to ensure no errors in the implementation and to save some time, we decided to use that for our tests. This will also give the red-black tree a better chance at competing with our Van Emde Boas tree based search tree as we expect the standard library to be well optimized. We wrote a small class implementing Insert, Remove and Predecessor using a \texttt{std::set}. We also wrote a small class implementing the same, using either our vEB or bitsmart vEB tree as well as the min function to handle the case when there is no predecessor for our query in the interleaved test.
 
 \subsection{Experiment Details}
 Setup was much like in the previous heap tests, though the test themselves differed slightly.
@@ -15,7 +15,7 @@ Four types of tests was done, where $n$ is the number of operations:
 
 \subsection{Expectations}
 
-In this second test we expect to see similar trends as in the first, with the Van Emde Boas trees being significantly faster than the Red-Black tree. In terms of memory, we expect the normal Van Emde Boas tree to use a very large chunk of memory, but hope that our bitsmart van Emde Boas tree will use a constant \textit{small} amount of memory, hopefully less than the Red-Black tree at large data sizes.
+In this second test we expect to see similar trends as in the first, with the Van Emde Boas trees being significantly faster than the Red-Black tree. In terms of memory, we expect the normal Van Emde Boas tree to use a very large chunk of memory, but hope that our bitsmart Van Emde Boas tree will use a constant \textit{small} amount of memory, hopefully less than the Red-Black tree at large data sizes.
 
 \subsection{Data}
 \subsubsection{Running Times}
