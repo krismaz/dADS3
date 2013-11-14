@@ -1,4 +1,4 @@
-std::set Insert
+VEB Insert
 Operations	Seconds	Comparisons
 262144	0.02	21489596
 524288	0.04	42979308
@@ -8,7 +8,7 @@ Operations	Seconds	Comparisons
 8388608	0.65	687671120
 16777216	1.28	1375342396
 
-std::set Insert
+bitsmart Insert
 Operations	Seconds	Comparisons
 262144	0.02	6553312
 524288	0.02	13106656

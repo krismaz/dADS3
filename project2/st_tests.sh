@@ -22,7 +22,7 @@ operations=(262144 524288 1048576 2097152 4194304 8388608 16777216)
 ##########
 
 # VEB
-echo "std::set Insert" >> "$filename"
+echo "VEB Insert" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -32,7 +32,7 @@ done
 echo "" >> "$filename"
 
 # bitsmart
-echo "std::set Insert" >> "$filename"
+echo "bitsmart Insert" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
