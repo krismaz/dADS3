@@ -73,7 +73,7 @@ float ST_TestPredecessor(int n)
 	clock_t t = clock();
 	unsigned int result = 0;
 
-	for(int i = n-1; i >= 0; i--) {
+	for(int i = 0; i < n; i++) {
 		result ^= tree.Predecessor(i);
 	}
 
@@ -106,7 +106,7 @@ float ST_TestInterleaved(int n)
 	tree.Remove(pred);
 	clock_t t = clock();
 
-	for(int i = 0; i < n/4; i++) {
+	for(int i = 0; i < n; i++) {
 		tree.Insert(pred);
 		pred = tree.Predecessor(rand()%n);
 		if(pred == -1) pred = tree.Min();
