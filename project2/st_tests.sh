@@ -22,7 +22,8 @@ operations=(262144 524288 1048576 2097152 4194304 8388608 16777216)
 ##########
 
 # VEB
-echo "VEB Insert" >> "$filename"
+echo "Insert" >> "$filename"
+echo "VEB" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -32,7 +33,7 @@ done
 echo "" >> "$filename"
 
 # bitsmart
-echo "bitsmart Insert" >> "$filename"
+echo "bitsmart" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -42,7 +43,7 @@ done
 echo "" >> "$filename"
 
 # std::set
-echo "std::set Insert" >> "$filename"
+echo "std::set" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -56,7 +57,8 @@ echo "" >> "$filename"
 #############
 
 # VEB
-echo "VEB Remove" >> "$filename"
+echo "Remove" >> "$filename"
+echo "VEB" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -66,7 +68,7 @@ done
 echo "" >> "$filename"
 
 # BITSMART
-echo "bitsmart Remove" >> "$filename"
+echo "bitsmart" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -76,7 +78,7 @@ done
 echo "" >> "$filename"
 
 # STD::SET
-echo "std::set Remove" >> "$filename"
+echo "std::set" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -88,8 +90,10 @@ echo "" >> "$filename"
 ###############
 # PREDECESSOR #
 ###############
+
+echo "Predecessor" >> "$filename"
 # VEB
-echo "VEB Predecessor" >> "$filename"
+echo "VEB" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -99,7 +103,7 @@ done
 echo "" >> "$filename"
 
 # BITSMART
-echo "bitsmart Predecessor" >> "$filename"
+echo "bitsmart" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -109,7 +113,7 @@ done
 echo "" >> "$filename"
 
 # STD::SET
-echo "std::set Predecessor" >> "$filename"
+echo "std::set" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -123,8 +127,9 @@ echo "" >> "$filename"
 ###############
 # INTERLEAVED #
 ###############
+echo "Interleaved" >> "$filename"
 # VEB
-echo "VEB Interleaved" >> "$filename"
+echo "VEB" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -134,7 +139,7 @@ done
 echo "" >> "$filename"
 
 # BITSMART
-echo "bitsmart Interleaved" >> "$filename"
+echo "bitsmart" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
@@ -144,7 +149,7 @@ done
 echo "" >> "$filename"
 
 # STD::SET
-echo "std::set Interleaved" >> "$filename"
+echo "std::set" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
