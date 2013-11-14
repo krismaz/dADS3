@@ -5,9 +5,9 @@ Each test was run with various amounts of operations, all powers of 2: $2^{18}=2
 \subsubsection{Test Types}
 Three types of test was done:
 \begin{description}
-\item[TestInserts] Testing the running time of Insert operations by measuring the time it takes to insert elements $n-1$ to $0$ in that order.
-\item[TestDeleteMin] Testing the running time of DeleteMin operations by first inserting elements like in the TestInserts test without measuring the time and then running DeleteMin the same amount of times while measuring time.
-\item[TestInterleaved] Testing the running time of interleaved Insert and DeleteMin operations by first inserting elements $n-1$ to $\frac{n-1}{2}$ elements without measuring time, and then interleaved calling DeleteMin and Insert on elements $\frac{n-1}{2}$ to $0$ while measuring time.
+\item[TestInserts] Testing the running time of \texttt{Insert} operations by measuring the time it takes to insert elements $n-1$ to $0$ in that order.
+\item[TestDeleteMin] Testing the running time of \texttt{DeleteMin} operations by first inserting elements like in the TestInserts test without measuring the time and then running \texttt{DeleteMin} the same amount of times while measuring time.
+\item[TestInterleaved] Testing the running time of interleaved \texttt{Insert} and \texttt{DeleteMin} operations by first inserting elements $n-1$ to $\frac{n-1}{2}$ elements without measuring time, and then interleaved calling \texttt{DeleteMin} and \texttt{Insert} on elements $\frac{n-1}{2}$ to $0$ while measuring time.
 \end{description}
 
 
