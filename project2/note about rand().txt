@@ -1,0 +1,1 @@
+By using rand() with default seed, each test has been run on the same input as evidenced by the same output of the XORs of each result
