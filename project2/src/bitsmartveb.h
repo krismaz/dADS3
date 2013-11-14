@@ -36,8 +36,8 @@ bool BitSmartMember(unsigned int mask, unsigned int value)
 
 unsigned int BitSmartPredecessor(unsigned int mask, unsigned int value)
 {
-  if(++comparisonCount && mask == 0) return -1;
   mask = mask & ((1<<value)-1);
+  if(++comparisonCount && mask == 0) return -1;
   msb
   return res;
 }

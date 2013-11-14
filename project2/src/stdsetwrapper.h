@@ -8,17 +8,17 @@ class StdSetWrapper
 private:
 	std::set<unsigned int> set;
 public:
-	void insert(unsigned int x)
+	void Insert(unsigned int x)
 	{
 		set.insert(x);
 	}
 
-	void remove(unsigned int x)
+	void Delete(unsigned int x)
 	{
 		set.erase(x);
 	}
 
-	unsigned int predecessor(unsigned int x)
+	unsigned int Predecessor(unsigned int x)
 	{
 		if(set.empty())
 		{
@@ -30,6 +30,11 @@ public:
 			return -1;
 		}
 		return *(--it);
+	}
+
+	unsigned int Min() {
+		auto derp = set.begin();
+		return (*derp);
 	}
 };
 
