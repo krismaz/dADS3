@@ -26,6 +26,26 @@ echo "std::set Insert" >> "$filename"
 echo "Operations	Seconds	Comparisons" >> "$filename"
 for numberOfOperations in ${operations[@]}
 do
+	./bin/project2 st_insert VEB $numberOfOperations >> "$filename"
+	#./cat.sh >> "$filename"
+done
+echo "" >> "$filename"
+
+# bitsmart
+echo "std::set Insert" >> "$filename"
+echo "Operations	Seconds	Comparisons" >> "$filename"
+for numberOfOperations in ${operations[@]}
+do
+	./bin/project2 st_insert bitsmart $numberOfOperations >> "$filename"
+	#./cat.sh >> "$filename"
+done
+echo "" >> "$filename"
+
+# std::set
+echo "std::set Insert" >> "$filename"
+echo "Operations	Seconds	Comparisons" >> "$filename"
+for numberOfOperations in ${operations[@]}
+do
 	./bin/project2 st_insert std $numberOfOperations >> "$filename"
 	#./cat.sh >> "$filename"
 done

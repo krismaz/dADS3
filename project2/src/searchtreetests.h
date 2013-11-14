@@ -78,7 +78,7 @@ float ST_TestPredecessor(int n)
 	}
 
 	t = clock() - t;
-	cout << result << endl;
+	cout << '$' << result << '$' << endl;
 	float runTime = (float)t/CLOCKS_PER_SEC;
 	return runTime;
 }
@@ -113,10 +113,10 @@ float ST_TestInterleaved(int n)
 		tree.Remove(pred);
 		result ^= pred;
 	}
-	
+
 	t = clock() - t;
 
-	cout << result << endl;
+	cout << '$' << result << '$' << endl;
 	float runTime = (float)t/CLOCKS_PER_SEC;
 	return runTime;
 }
