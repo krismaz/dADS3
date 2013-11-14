@@ -101,16 +101,13 @@ float ST_TestInterleaved(int n)
 	comparisonCount = 0;
 
 	// TIMED TEST
-	unsigned int pred = tree.Predecessor(rand()%n);
-	if(pred == -1) pred = tree.Min();
-	tree.Remove(pred);
 	clock_t t = clock();
 
 	for(int i = 0; i < n; i++) {
-		tree.Insert(pred);
-		pred = tree.Predecessor(rand()%n);
+		unsigned int pred = tree.Predecessor(rand()%n);
 		if(pred == -1) pred = tree.Min();
 		tree.Remove(pred);
+		tree.Insert(pred);
 		result ^= pred;
 	}
 
