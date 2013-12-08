@@ -61,7 +61,7 @@ melville_q_invalidate (Appending ok f' r') = (Appending (ok-1) f' r')
 melville_q_invalidate state = state
 
 melville_q_work2 :: MelvilleQ -> MelvilleQ
-melville_q_work2 (Melville lenf f state lenr r) = case melville_q_work (melville_q_work state) of 
+melville_q_work2 (Melville lenf f state lenr r) = case melville_q_work (melville_q_work state) of --Note, case is strict
 	(Done newf) -> (Melville lenf newf Idle lenr r)
 	newstate -> (Melville lenf f newstate lenr r)
 
