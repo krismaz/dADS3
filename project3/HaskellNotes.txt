@@ -2,3 +2,8 @@ http://www.haskell.org/haskellwiki/Performance/Strictness
 Oskakis big book on functional data structures
 ghc -O
 seq/deepseq
+
+To-read: Oskaki "Purely functional data structures", chapter on Melville queues
+	Gerth Slides on functional data thingies
+	Probably the stuff for the lecture too
+	Haskell page from above
