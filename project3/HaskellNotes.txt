@@ -1,0 +1,3 @@
+http://www.haskell.org/haskellwiki/Performance/Strictness
+Oskakis big book on functional data structures
+ghc -O
