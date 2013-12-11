@@ -48,15 +48,15 @@ data MelvilleQ =
 	Melville Integer [Integer] State Integer [Integer]
 
 melville_q_work :: State -> State
-melville_q_work (Reversing ok [] f' y r') = (Appending ok f' (head(y):r'))
-melville_q_work (Reversing ok f f' r r') = (Reversing (ok+1) (tail(f)) (head(f):f') (tail(r)) (head(r):r'))
+melville_q_work (Reversing ok [] f' (y:ys) r') = (Appending ok f' (y:r'))
+melville_q_work (Reversing ok (f:fs) f' (r:rs) r') = (Reversing (ok+1) fs (f:f') rs (r:r'))
 melville_q_work (Appending 0 f' r') = (Done r')
-melville_q_work (Appending ok f' r') = (Appending (ok-1) (tail(f')) (head(f'):r'))
+melville_q_work (Appending ok (f:f') r') = (Appending (ok-1) f' (f:r'))
 melville_q_work state = state
 
 melville_q_invalidate :: State -> State
 melville_q_invalidate (Reversing ok f f' r r') = (Reversing (ok-1) f f' r r')
-melville_q_invalidate (Appending 0 f' r') = (Done (tail(r')))
+melville_q_invalidate (Appending 0 f' (r:r')) = (Done r')
 melville_q_invalidate (Appending ok f' r') = (Appending (ok-1) f' r')
 melville_q_invalidate state = state
 
@@ -72,11 +72,11 @@ melville_q_check (Melville lenf f state lenr r)
 
 melville_q_head :: MelvilleQ -> Integer
 melville_q_head (Melville lenf [] state lenr r) = error "Empty Melville pop"
-melville_q_head (Melville lenf f state lenr r) = head(f)
+melville_q_head (Melville lenf (f:fs) state lenr r) = f
 
 melville_q_tail :: MelvilleQ -> MelvilleQ
 melville_q_tail (Melville lenf [] state lenr r) = error "Empty Melville pop"
-melville_q_tail (Melville lenf f state lenr r) = melville_q_check (Melville (lenf-1) (tail(f)) (melville_q_invalidate state) lenr r)
+melville_q_tail (Melville lenf (f:fs) state lenr r) = melville_q_check (Melville (lenf-1) fs (melville_q_invalidate state) lenr r)
 
 melville_q_make :: MelvilleQ
 melville_q_make = (Melville 0 [] Idle 0 [])
