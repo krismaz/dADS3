@@ -1,0 +1,45 @@
+\section{The Haskell Data Structures}
+
+As specified in the excersize, 4 different queues were implemented in Haskell. The have various properties, described as follows:
+
+\begin{description}
+\item[1. Haskell List] 
+A queue can be implemented using a single built-in list from Haskell. 
+Performing a \texttt{pop} is simple, just remove the splt the list into the head and tail part.
+\texttt{Inject} on the other hand is slow, since we need to insert at the tail of the list. We do this, be reversing the list, adding the new final element as a head, and revering again. Note that this could probably be sped up by performing only a single run through the list, but it is, under any circumstance, an $O(n)$ operation.
+
+Depending on how Haskells strictness analysis performs, we might actually see that the heavy work of the \texttt{inject} function gets thunked, and evaluated at the next \texttt{pop} operation.
+
+\item[2. Paired O(1) Non-Reusable Queue]
+This queue implementation is based on maintaining a pair of queues, with one being the front of the queue, and one being the end of the queue, in reverse order. 
+When we \texttt{pop}, we simply return the head of the front list, or, if it is empty, reverse the en list into the front list, and perform the \texttt{pop}.
+\texttt{Inject} is done by adding the injected element as the head of the end list.
+If we assume that any operation is only done on the currently newest version of the list, we can have the \texttt{inject} pay an amortized $O(1)$, to \texttt{pop} be an $O(1)$ cost operation amortized in a strict execution context.
+
+Note that even with lazy evaluation, we will most likely perform the entire reverse operation each time we need to reverse, since we need to remove the head.
+
+\item[3. Real-Time Strict Queues] 
+For the $O(1)$ worst case queues we use the queues of (TODO:Ref Melville Real-time queues in pure lisp). Instead of using the implementation example from the slides of (TODO: Ref Gerth slides), we adapted the implementation presented in (TODO: ref Oskaki purely functional data structures (bogen, ikke thesis)). This queue is maintains a front and a reversed end list, much like amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
+\begin{description}
+\item[Reversing] The queue is in the process of reversing the front and end list, in preparation of concatenating them. This phase uses 4 lists.
+\item[Appending] After having reversed the lists, the queue will append the front list to the end list one element at a time. This phase uses 2 lists.
+\item[Done] The queue is done reversing and appending, and the new front list is ready. This phase uses 1 list.
+\item[Idle] The queue needs not do any more work right now.
+\end{description}
+
+Since we use at most 4 lists in any phase, and 2 list in the queue itself, we use at most 6 lists in total.
+
+After doing a \texttt{inject} or \texttt{pop}, we perform 2 steps of work on the current state, which ensures that we will always by ready to perform \texttt{pop}.
+
+Note that we also keep 3 counters in the queue; the front list lenght, the end list lenght and the amount of valid elements in the state. This ensures that we can easily determine whether or not to initiated a global rebuild, and which elements we can discard from the global rebuild.
+
+In terms of strictness, we use a \texttt{case} statement to ensure strict work step is strictly eecuted, but we fear that haskel may still lazily thunk either some of the inner contents of the work operation, or during some of the functions leading to the work statement.
+
+\item[4. Lazy Amortized $O(1)$ Queues]
+
+The lazy queue keeps track of 2 lists, a front and a reversed end list, and their lengths. Whenever the reverse end list grows longer than the front list, we replace the front list by the concatenation of the front list and the end list reversed. 
+Note that by requiring the end list to have grown significantly since each concat-reverse, we ensure that we have done enough \texttt{pop} or \texttt{inject} operations to have a $O(1)$ amortized cost.
+
+\end{description}
+
+Since these queues all follow the same interface, we also included wrapper functions that map generic \texttt{pop}, \texttt{inject} and \texttt{make} operations to the corresponding implementation-specific operation.

@@ -4,7 +4,7 @@ list_q_make :: [Integer]
 list_q_make = []
 
 list_q_push :: Integer -> [Integer] -> [Integer]
-list_q_push i l = reverse (i : (reverse l))
+list_q_push i l = reverse (i : (reverse l)) -- COuld probably be sped up by about a factor 2, depending on compiler magic
 
 list_q_pop :: [Integer] -> (Integer, [Integer])
 list_q_pop (x:xs) = (x, xs)
@@ -32,7 +32,7 @@ lazy_q_push i (h, t, (lh, lt))
 lazy_q_pop :: ([Integer], [Integer], (Integer, Integer)) -> (Integer , ([Integer], [Integer], (Integer, Integer)))
 lazy_q_pop ([], [], (0, 0)) = error "Empty lazy_q_pop" 
 lazy_q_pop (h:hs, t, (lh, lt))
-	| lh > lt = (h, (hs, t, (lh-1, lt)))
+	| lh > lt = (h, (hs, t, (lh-1, lt))) --Note:slides work on different pattern match
 	| otherwise = (h , (hs ++ (reverse (t)), [] , (lh + lt - 1 , 0)))
 
 
@@ -100,8 +100,8 @@ data Queue =
 	Strict ([Integer], [Integer]) |
 	Lazy ([Integer], [Integer], (Integer, Integer)) |
 	RealTime MelvilleQ
-
-generic_q_make:: QType -> Queue
+generic_q_make
+:: QType -> Queue
 generic_q_make TList = (List list_q_make)
 generic_q_make TStrict = (Strict strict_q_make)
 generic_q_make TLazy = (Lazy lazy_q_make)
