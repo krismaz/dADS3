@@ -1,0 +1,153 @@
+warming up
+estimating clock resolution...
+mean is 1.236080 us (640001 iterations)
+found 91373 outliers among 639999 samples (14.3%)
+  6 (9.4e-4%) low severe
+  91367 (14.3%) high severe
+estimating cost of a clock call...
+mean is 38.17350 ns (10 iterations)
+
+benchmarking test_pop_push/list
+collecting 100 samples, 1 iterations each, in estimated 293.6726 s
+mean: 237.4118 ms, lb 236.5661 ms, ub 238.9662 ms, ci 0.950
+std dev: 5.683293 ms, lb 3.665292 ms, ub 9.849012 ms, ci 0.950
+found 6 outliers among 100 samples (6.0%)
+  4 (4.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 17.117%
+variance is moderately inflated by outliers
+
+benchmarking test_pop_push/strict
+mean: 365.2835 us, lb 357.0842 us, ub 378.9687 us, ci 0.950
+std dev: 53.03466 us, lb 37.19251 us, ub 88.12312 us, ci 0.950
+found 7 outliers among 100 samples (7.0%)
+  5 (5.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 89.400%
+variance is severely inflated by outliers
+
+benchmarking test_pop_push/lazy
+mean: 270.8626 us, lb 262.7349 us, ub 284.1186 us, ci 0.950
+std dev: 52.19665 us, lb 37.16514 us, ub 85.50686 us, ci 0.950
+found 8 outliers among 100 samples (8.0%)
+  4 (4.0%) high mild
+  4 (4.0%) high severe
+variance introduced by outliers: 93.628%
+variance is severely inflated by outliers
+
+benchmarking test_pop_push/realtime
+mean: 681.7865 us, lb 667.8366 us, ub 699.6941 us, ci 0.950
+std dev: 80.57445 us, lb 65.36347 us, ub 102.2993 us, ci 0.950
+found 4 outliers among 100 samples (4.0%)
+  3 (3.0%) high mild
+  1 (1.0%) high severe
+variance introduced by outliers: 84.192%
+variance is severely inflated by outliers
+
+benchmarking test_pop/list
+mean: 86.69058 us, lb 85.75042 us, ub 87.83213 us, ci 0.950
+std dev: 5.297950 us, lb 4.415999 us, ub 6.353391 us, ci 0.950
+found 6 outliers among 100 samples (6.0%)
+  6 (6.0%) high mild
+variance introduced by outliers: 58.494%
+variance is severely inflated by outliers
+
+benchmarking test_pop/strict
+mean: 387.5619 us, lb 348.2795 us, ub 454.5641 us, ci 0.950
+std dev: 253.5294 us, lb 162.1340 us, ub 353.4644 us, ci 0.950
+found 11 outliers among 100 samples (11.0%)
+  4 (4.0%) high mild
+  7 (7.0%) high severe
+variance introduced by outliers: 98.964%
+variance is severely inflated by outliers
+
+benchmarking test_pop/lazy
+mean: 143.4051 us, lb 141.8246 us, ub 145.4782 us, ci 0.950
+std dev: 9.211964 us, lb 7.374666 us, ub 11.84244 us, ci 0.950
+found 8 outliers among 100 samples (8.0%)
+  6 (6.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 60.544%
+variance is severely inflated by outliers
+
+benchmarking test_pop/realtime
+mean: 391.6764 us, lb 386.3317 us, ub 398.6591 us, ci 0.950
+std dev: 31.25518 us, lb 25.12016 us, ub 40.24565 us, ci 0.950
+found 7 outliers among 100 samples (7.0%)
+  5 (5.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 70.728%
+variance is severely inflated by outliers
+
+benchmarking test_push/list
+collecting 100 samples, 1 iterations each, in estimated 77.29800 s
+mean: 779.4203 ms, lb 777.0713 ms, ub 785.7752 ms, ci 0.950
+std dev: 18.41160 ms, lb 8.392856 ms, ub 39.25052 ms, ci 0.950
+found 7 outliers among 100 samples (7.0%)
+  3 (3.0%) high mild
+  4 (4.0%) high severe
+variance introduced by outliers: 17.093%
+variance is moderately inflated by outliers
+
+benchmarking test_push/strict
+mean: 143.3563 us, lb 141.5576 us, ub 146.5661 us, ci 0.950
+std dev: 11.94626 us, lb 7.950651 us, ub 20.46099 us, ci 0.950
+found 6 outliers among 100 samples (6.0%)
+  4 (4.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 72.768%
+variance is severely inflated by outliers
+
+benchmarking test_push/lazy
+mean: 91.23857 us, lb 90.23134 us, ub 92.82809 us, ci 0.950
+std dev: 6.337047 us, lb 4.626025 us, ub 10.05005 us, ci 0.950
+found 3 outliers among 100 samples (3.0%)
+  2 (2.0%) high severe
+variance introduced by outliers: 64.589%
+variance is severely inflated by outliers
+
+benchmarking test_push/realtime
+mean: 226.3029 us, lb 224.0630 us, ub 229.7687 us, ci 0.950
+std dev: 14.07991 us, lb 10.26859 us, ub 24.30037 us, ci 0.950
+found 1 outliers among 100 samples (1.0%)
+  1 (1.0%) high severe
+variance introduced by outliers: 59.498%
+variance is severely inflated by outliers
+
+benchmarking test_repeated_push_pop/list
+collecting 100 samples, 1 iterations each, in estimated 22.93651 s
+mean: 196.4586 ms, lb 195.9918 ms, ub 197.0822 ms, ci 0.950
+std dev: 2.754664 ms, lb 2.193072 ms, ub 3.651168 ms, ci 0.950
+found 7 outliers among 100 samples (7.0%)
+  5 (5.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 6.611%
+variance is slightly inflated by outliers
+
+benchmarking test_repeated_push_pop/strict
+collecting 100 samples, 1 iterations each, in estimated 10.39429 s
+mean: 99.05130 ms, lb 98.60291 ms, ub 99.24258 ms, ci 0.950
+std dev: 1.414034 ms, lb 745.8468 us, ub 2.919124 ms, ci 0.950
+found 3 outliers among 100 samples (3.0%)
+  1 (1.0%) low severe
+  2 (2.0%) high mild
+variance introduced by outliers: 7.509%
+variance is slightly inflated by outliers
+
+benchmarking test_repeated_push_pop/lazy
+mean: 113.7776 us, lb 111.9269 us, ub 117.3960 us, ci 0.950
+std dev: 12.77058 us, lb 7.915898 us, ub 23.84996 us, ci 0.950
+found 5 outliers among 100 samples (5.0%)
+  3 (3.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 83.125%
+variance is severely inflated by outliers
+
+benchmarking test_repeated_push_pop/realtime
+mean: 137.5084 us, lb 136.3312 us, ub 139.0473 us, ci 0.950
+std dev: 6.905709 us, lb 5.603718 us, ub 9.048236 us, ci 0.950
+found 7 outliers among 100 samples (7.0%)
+  5 (5.0%) high mild
+  2 (2.0%) high severe
+variance introduced by outliers: 48.451%
+variance is moderately inflated by outliers
