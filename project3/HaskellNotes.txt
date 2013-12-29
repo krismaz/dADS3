@@ -1,9 +1,19 @@
 http://www.haskell.org/haskellwiki/Performance/Strictness
 Oskakis big book on functional data structures
-ghc -O
+ghc -O2 -funbox-strict-fields -XBangPatterns -optc-O3
 seq/deepseq
 
 To-read: Oskaki "Purely functional data structures", chapter on Melville queues
 	Gerth Slides on functional data thingies
 	Probably the stuff for the lecture too
 	Haskell page from above
+
+Performance:
+-Thunking
+-strictness analysis
+-case strictness
+-strictness in data type, works sometimes, othertimes not ~5-30 for lazy q depending on test
+-use full types, eg. Integer and [Integer], include type specifiers
+-inlining, done by -O
+-Making paremeters strict, applies mostly to melville, very minor speedup when using in conjunction with strict types ~5% for melville
+- Use Int instead of Integer ~10-30%

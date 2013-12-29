@@ -33,3 +33,6 @@ obj/
 
 # Haskell
 *.hi
+
+#Windows excutables
+*.exe
