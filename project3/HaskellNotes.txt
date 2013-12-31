@@ -1,6 +1,7 @@
 http://www.haskell.org/haskellwiki/Performance/Strictness
 Oskakis big book on functional data structures
 ghc -O2 -funbox-strict-fields -XBangPatterns -optc-O3
+./testQueues -u Bench.csv -o Bench.html -s #samples
 seq/deepseq
 
 To-read: Oskaki "Purely functional data structures", chapter on Melville queues

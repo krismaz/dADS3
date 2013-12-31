@@ -42,7 +42,7 @@ lazy_q_pop (h:hs, t, (lh, lt))
 
 data State =
 	Idle |
-	Reversing !Int [Int] [Int] [Int] [Int] | --TODO:strictness was tried, seemed to not matter, write about that
+	Reversing !Int [Int] [Int] [Int] [Int] | 
 	Appending !Int [Int] [Int] |
 	Done [Int]
 
@@ -102,7 +102,7 @@ data QType =
 data Queue =
 	List [Int] |
 	Strict ([Int], [Int]) |
-	Lazy ! ([Int], [Int],  (Int,  Int)) | --TODO:Strictness workerd here, nice, write about it
+	Lazy ! ([Int], [Int],  (Int,  Int)) | 
 	RealTime MelvilleQ
 
 
