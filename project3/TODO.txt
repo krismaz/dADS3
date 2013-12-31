@@ -1,0 +1,8 @@
+Skriv intro
+skriv conclusion
+Lav rapport
+Skriv om testframework (criterion)
+Skriv om tests
+Kør test for fornuftigt data (500-10000, med 500 interval?)
+Lav grafer, fra csv
+skriv konklusion på tests
