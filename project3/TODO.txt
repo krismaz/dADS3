@@ -1,8 +1,8 @@
-Skriv intro
+Skriv intro //Roland
 skriv conclusion
 Lav rapport
-Skriv om testframework (criterion)
+Skriv om testframework (criterion) //Roland
 Skriv om tests
 Kør test for fornuftigt data (500-10000, med 500 interval?)
-Lav grafer, fra csv
+Lav grafer, fra csv //Roland
 skriv konklusion på tests
