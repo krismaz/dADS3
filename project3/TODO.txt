@@ -3,6 +3,6 @@ skriv conclusion
 Lav rapport
 Skriv om testframework (criterion) //Roland
 Skriv om tests
-Kør test for fornuftigt data (500-10000, med 500 interval?) //Hvem kører tests?
+Kør test for fornuftigt data (500-10000, med 500 interval?) //Done by Kris
 Lav grafer, fra csv //Roland
 skriv konklusion på tests

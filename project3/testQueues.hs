@@ -49,10 +49,10 @@ make_nf_test_group (s, f, n) =
 	let lazyQ = make_test_queue (generic_q_make TLazy, n) in
 	let realtimeQ = make_test_queue (generic_q_make TRealTime, n) in
 	bgroup s
-		[ bench "list" $ nf f (listQ, 1000)
-		, bench "strict" $ nf f (strictQ, 1000)
-		, bench "lazy" $ nf f (lazyQ, 1000)
-		, bench "realtime" $ nf f (realtimeQ, 1000)
+		[ bench "list" $ nf f (listQ, 500)
+		, bench "strict" $ nf f (strictQ, 500)
+		, bench "lazy" $ nf f (lazyQ, 500)
+		, bench "realtime" $ nf f (realtimeQ, 500)
 		]
 
 make_sized_array_test_group :: Int -> Benchmark
@@ -68,7 +68,24 @@ make_sized_array_test_group n =
 
 -- RUNNING TESTS
 main = defaultMain [
+	make_sized_array_test_group 500,
 	make_sized_array_test_group 1000,
-	make_sized_array_test_group 10000,
-	make_sized_array_test_group 100000
+	make_sized_array_test_group 1500,
+	make_sized_array_test_group 2000,
+	make_sized_array_test_group 2500,
+	make_sized_array_test_group 3000,
+	make_sized_array_test_group 3500,
+	make_sized_array_test_group 4000,
+	make_sized_array_test_group 4500,
+	make_sized_array_test_group 5000,
+	make_sized_array_test_group 5500,
+	make_sized_array_test_group 6000,
+	make_sized_array_test_group 6500,
+	make_sized_array_test_group 7000,
+	make_sized_array_test_group 7500,
+	make_sized_array_test_group 8000,
+	make_sized_array_test_group 8500,
+	make_sized_array_test_group 9000,
+	make_sized_array_test_group 9500,
+	make_sized_array_test_group 10000
    ]
