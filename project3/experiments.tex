@@ -91,7 +91,7 @@ On pure \texttt{pop} operations however, it will be $O(1)$, with a very low over
 \item[2. Paired O(1) Non-Reusable Queue]
 The Paired Queue implementation should be fairly low-overhead, and as such perform quite well, except on the special test case, where we reuse queues.
 \item[3. Real-Time Strict Queues] 
-The Real-Time Strict Queue should generally perform well on all test cases, since we have a nice $O(1)$ worst-case guarentee for all operations. This queue however, has quite a large overhead, and will therefore most likely be outperform on by most other queues in tests cases where they exhibit $O(1)$ performance. 
+The Real-Time Strict Queue should generally perform well on all test cases, since we have a nice $O(1)$ worst-case guarentee for all operations. This queue however, has quite a large overhead, and will therefore most likely be outperformed by most other queues in tests cases where they exhibit $O(1)$ performance. 
 \item[4. Lazy Amortized $O(1)$ Queues]
 The Lazy Queue should perform very well on all test cases. Not only does it have $O(1)$ amortized cost for all operation, it also has quite a low overhead. 
 \end{description}
