@@ -83,7 +83,16 @@
 \begin{document}
 \section{Test Framework - Criterion}
 \subsection{Description}
-	Criterion is a benchmarking framework developed for Haskell that can give you accurate statistical information about the code segment you are testing. This includes the mean and standard deviation of the running time for each sample.
+	Criterion is a benchmarking framework developed for Haskell that can give you accurate statistical information about the code segment you are testing. This includes the mean and standard deviation of the running time for each sample. Timing values are usefull, but having an indication of which times occurred most often is a lot more usefull, because the time that occurres most often is the value closest to the correct running time of the code. Criterion can output histograms in html showing this information. 
+
+When we test using criterion the first thing it does is measure how long it takes for the system clock to tick and then run the code several times to ensure that the resolution of the clock does not introduce any significant errors. If the code takes 5$\mu$s to evaluate but the clock only ticks every 9$\mu$s, we cannot just run the code once and subtract start time from end time because then it would look like the code evaluated instantly sometimes and sometimes not. By running the code thousands of times the error is reduced to only a few instances out of the whole. 
+
+Criterion automatically calculates how many times it needs to evaluate the code and also reports an estimate of how long it will take. It uses a boxplot technique to get a quick sense of the quality of the data by calculating outliers, which are values that lies far from the mean of the sample. Once the system clock period has been found criterion figures out how expensive it is to use the clock and adjusts the time measurements to take the clock into account. 
+
+In the end criterion performs some statistical analysis on the results using a technique called bootstrapping to se if other processes on the computer might have influenced the results by looking at the number of outliers. If there are many outliers the results are essentially junk because the computer then would have varied compute capability during testing, which corrupts the results.  
+
+The graphs showing our test results was computed using the mean as execution time as it was close to the time that occurred most often in all test cases.
+
 \end{document}
 
 
