@@ -1,133 +1,13 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LaTeX Example: Project Report
-%
-% Source: http://www.howtotex.com
-%
-% Feel free to distribute this example, but please keep the referral
-% to howtotex.com
-% Date: March 2011 
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% How to use writeLaTeX: 
-%
-% You edit the source code here on the left, and the preview on the
-% right shows you the result within a few seconds.
-%
-% Bookmark this page and share the URL with your co-authors. They can
-% edit at the same time!
-%
-% You can upload figures, bibliographies, custom classes and
-% styles using the files menu.
-%
-% If you're new to LaTeX, the wikibook is a great place to start:
-% http://en.wikibooks.org/wiki/LaTeX
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Edit the title below to update the display in My Documents
-%\title{Project Report}
-%
-%%% Preamble
-\documentclass[paper=a4, fontsize=11pt]{scrartcl}
-\usepackage[T1]{fontenc}
-\usepackage{fourier}
 
-\usepackage[english]{babel}															% English language/hyphenation
-\usepackage[protrusion=true,expansion=true]{microtype}	
-\usepackage{amsmath,amsfonts,amsthm} % Math packages
-\usepackage[pdftex]{graphicx}	
-\usepackage{url}
-
-
-%%% Custom sectioning
-\usepackage{sectsty}
-\allsectionsfont{\centering \normalfont\scshape}
-
-
-%%% Custom headers/footers (fancyhdr package)
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\fancyhead{}											% No page header
-\fancyfoot[L]{}											% Empty 
-\fancyfoot[C]{}											% Empty
-\fancyfoot[R]{\thepage}									% Pagenumbering
-\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
-\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
-\setlength{\headheight}{13.6pt}
-
-%%% Equation and float numbering
-\numberwithin{equation}{section}		% Equationnumbering: section.eq#
-\numberwithin{figure}{section}			% Figurenumbering: section.fig#
-\numberwithin{table}{section}				% Tablenumbering: section.tab#
-
-
-%%% Maketitle metadata
-\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
-
-\title{
-		%\vspace{-1in} 	
-		\usefont{OT1}{bch}{b}{n}
-		\normalfont \normalsize \textsc{School of random department names} \\ [25pt]
-		\horrule{0.5pt} \\[0.4cm]
-		\huge This is the title of the template report \\
-		\horrule{2pt} \\[0.5cm]
-}
-\author{
-		\normalfont 								\normalsize
-        Firstname Lastname\\[-3pt]		\normalsize
-        \today
-}
-\date{}
-
-
-%%% Begin document
-\begin{document}
 \section{Test Framework - Criterion}
-\subsection{Description}
-	Criterion is a benchmarking framework developed for Haskell that can give you accurate statistical information about the code segment you are testing. This includes the mean and standard deviation of the running time for each sample. Timing values are usefull, but having an indication of which times occurred most often is a lot more usefull, because the time that occurres most often is the value closest to the correct running time of the code. Criterion can output histograms in html showing this information. 
+Criterion (TODO: Criterion github ref) ref is a benchmarking framework for Haskell developed by Bryan O'Sullivan (TODO:ref Bryan's webpage) that gives accurate statistical information about the code segment you are testing. This includes the mean and standard deviation of the running time for each sample. Timing values are useful, but having an indication of which times occurred most often is a lot more useful, because it can hint at outliers offsetting the mean running time. Criterion can output histograms in html showing this information. 
 
-When we test using criterion the first thing it does is measure how long it takes for the system clock to tick and then run the code several times to ensure that the resolution of the clock does not introduce any significant errors. If the code takes 5$\mu$s to evaluate but the clock only ticks every 9$\mu$s, we cannot just run the code once and subtract start time from end time because then it would look like the code evaluated instantly sometimes and sometimes not. By running the code thousands of times the error is reduced to only a few instances out of the whole. 
+When we test using Criterion the first thing it does is measure how long it takes for the system clock to tick and then run the code several times to ensure that the resolution of the clock does not introduce any significant errors. If the code takes 5$\mu$s to evaluate but the clock only ticks every 9$\mu$s, we cannot just run the code once and subtract start time from end time because then it would look like the code evaluated instantly sometimes and sometimes not. By running the code thousands of times the error is reduced to only a few instances out of the whole. 
 
 Criterion automatically calculates how many times it needs to evaluate the code and also reports an estimate of how long it will take. It uses a boxplot technique to get a quick sense of the quality of the data by calculating outliers, which are values that lies far from the mean of the sample. Once the system clock period has been found criterion figures out how expensive it is to use the clock and adjusts the time measurements to take the clock into account. 
 
-In the end criterion performs some statistical analysis on the results using a technique called bootstrapping to se if other processes on the computer might have influenced the results by looking at the number of outliers. If there are many outliers the results are essentially junk because the computer then would have varied compute capability during testing, which corrupts the results.  
+In the end criterion performs some statistical analysis on the results using a technique called bootstrapping to see if other processes on the computer might have influenced the results by looking at the number of outliers. If there are many outliers the results are essentially junk because the computer then would have varied compute capability during testing, which corrupts the results.  
 
 The graphs showing our test results was computed using the mean as execution time as it was close to the time that occurred most often in all test cases.
 
-\end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Due to all of these excellent features of Criterion, and its ease of use, we chose it as our the basis for all of our tests. 
