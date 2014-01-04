@@ -1,8 +1,11 @@
 Skriv intro //Done by Kris
-skriv conclusion
-Lav rapport
+skriv conclusion //Kris will do
+Lav rapport //Done Kris
 Skriv om testframework (criterion) //Roland
 Skriv om tests
 Kør test for fornuftigt data (500-10000, med 500 interval?) //Done by Kris
 Lav grafer, fra csv //Roland
-skriv konklusion på tests
+skriv konklusion på tests //Kris will do
+Indsæt Grafer
+Fix up todos
+Write not about terminolgy pushinjectpop //Kris will do
