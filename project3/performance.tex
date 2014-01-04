@@ -17,23 +17,23 @@ Used together, these flags allowed us to fine-tune the compilation of our Haskel
 
 \subsection{Haskell and Lazy Thunks}
 
-Haskell programs are lazily evaluated, using so-called \textit{thunks}. This means that the execution of any expression gets replaced by a \textit{thunk}, which acts a placeholder for the value until it is actually needed. As soon as it becomes necessary to know the value of the expression, we evaluate the \textit{thunk}, and store the associated value.
+Haskell programs are lazily evaluated, using so-called \textit{thunks}. This means that the execution of any expression gets replaced by a \textit{thunk}, which acts as a placeholder for the value until it is actually needed. As soon as it becomes necessary to know the value of the expression, we evaluate the \textit{thunk}, and store the associated value.
 
 Note that a \textit{thunked} expression is only evaluated once, a key feature of the Lazy Queue, and any expression that is never used will not be evaluated. 
 
 Lazy \textit{thunks} do however have some performance concerns. Delayed execution may lead to a very heavy workload being assigned to a single operation, since long chains of unevaluated thunks might have developed. Also, the memory usage of storing these \textit{thunks}, if they are not forced in time.
 
-Since lazy evaluation is such a big part of Haskell performance, many of optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try analyse when a value is imediately needed, and evaluate it strictly.
+Since lazy evaluation is such a big part of Haskell performance, many of the optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try analyse when a value is imediately needed, and evaluate it strictly.
 
 \subsection{Using \texttt{case} to Force Strictness}
 
 In the Real-Time Strict Queues, we wish to enforce strictness on the evaluation of the global rebuilding. We do this using the \texttt{case} statement, which performs pattern matching on the result of a given expression. Since we need to know the structure of the result, we force the execution of the thunk representing the global rebuilding state, and maintain the O(1) worst-case guarantee for all operations.
 
-\subsection{Strict Data Types} Strictness can be enforced for type members, and unpacked into function parameters using the \texttt{-funbox-strict-fields} compiler flag. In certain part of the program data structure, this can save us the overhead of thunking, and lead to a significant speedup.
+\subsection{Strict Data Types} Strictness can be enforced for type members, and unpacked into function parameters using the \texttt{-funbox-strict-fields} compiler flag. In certain parts of the program data structure, this can save us the overhead of thunking, and lead to a significant speedup.
 
 Simply marking the general structure of the Lazy Queue as strict (note that inner values are still lazy, we do not force strict execution of the lists making up the queue), and unpacking it, lead to a speedup of $\sim 5\%-30\%$, depending on the test suite.
 
-Using strictness in the Real-Time Strict Queue structure was also used, but not in itself provide any speed-up.
+Using strictness in the Real-Time Strict Queue structure was also used, but id did not in itself provide any speed-up.
 
 \subsection{Using Non-Generic Types}
 
