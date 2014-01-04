@@ -26,7 +26,7 @@ If we assume that any operation is only done on the currently newest version of 
 Note that even with lazy evaluation, we will most likely perform the entire reverse operation each time we need to reverse, since we need to remove the head.
 
 \item[3. Real-Time Strict Queues] 
-For the $O(1)$ worst case queues we use the queues of (TODO:Ref Melville Real-time queues in pure lisp). Instead of using the implementation example from the slides of (TODO: Ref Gerth slides), we adapted the implementation presented in (TODO: ref Oskaki purely functional data structures (bogen, ikke thesis)). This queue is maintains a front and a reversed end list, much like amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
+For the $O(1)$ worst case queues we use the queues of (TODO:Ref Melville Real-time queues in pure lisp). Instead of using the implementation example from the slides of (TODO: Ref Gerth slides), we adapted the implementation presented in (TODO: ref Oskaki purely functional data structures (book, not thesis)). This queue maintains a front and a reversed end list, much like amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of the state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
 \begin{description}
 \item[Reversing] The queue is in the process of reversing the front and end list, in preparation of concatenating them. This phase uses 4 lists.
 \item[Appending] After having reversed the lists, the queue will append the front list to the end list one element at a time. This phase uses 2 lists.
@@ -38,7 +38,7 @@ Since we use at most 4 lists in any phase, and 2 list in the queue itself, we us
 
 After doing a \texttt{inject} or \texttt{pop}, we perform 2 steps of work on the current state, which ensures that we will always by ready to perform \texttt{pop}.
 
-Note that we also keep 3 counters in the queue; the front list length, the end list length and the amount of valid elements in the state. This ensures that we can easily determine whether or not to initiated a global rebuild, and which elements we can discard from the global rebuild.
+Note that we also keep 3 counters in the queue; the front list length, the end list length and the amount of valid elements in the state. This ensures that we can easily determine whether or not to initiate a global rebuild, and which elements we can discard from the global rebuild.
 
 In terms of strictness, we use a \texttt{case} statement to ensure strict work step is strictly executed, but we fear that Haskell may still lazily thunk either some of the inner contents of the work operation, or during some of the functions leading to the work statement.
 
