@@ -9,3 +9,4 @@ skriv konklusion på tests //Kris will do
 Indsæt Grafer //Roland, done. Der skal nok skrives lidt tekst til og ved ikke om de alle skal med.
 Fix up todos
 Write not about terminolgy pushinjectpop //Kris will do
+Tilføj referencer i raporten.
