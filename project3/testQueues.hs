@@ -5,12 +5,12 @@ import Queues
 -- TEST CASES
 -- General note: use the popped elements or they will be optimized away
 
--- n times popping an element and pushing another
-test_pop_push :: (Queue, Int) -> [Int]
-test_pop_push (q, 0) = []
-test_pop_push (q, n) =
+-- n times popping an element and injecting another
+test_pop_inject :: (Queue, Int) -> [Int]
+test_pop_inject (q, 0) = []
+test_pop_inject (q, n) =
 	let (x, q') = generic_q_pop q in
-	x : test_pop_push(generic_q_push n q', n-1)
+	x : test_pop_inject(generic_q_inject n q', n-1)
 
 -- pop n elements off the queue
 test_pop :: (Queue, Int) -> [Int]
@@ -19,17 +19,17 @@ test_pop (q, n) =
 	let (x, q') = generic_q_pop q in
 	x : test_pop(q', n-1)
 
--- push n elements onto the queue
-test_push :: (Queue, Int) -> [Int]
-test_push (q, 0) = let (x, _) = generic_q_pop q in [x]
-test_push (q, n) = test_push(generic_q_push n q, n-1)
+-- inject n elements onto the queue
+test_inject :: (Queue, Int) -> [Int]
+test_inject (q, 0) = let (x, _) = generic_q_pop q in [x]
+test_inject (q, n) = test_inject(generic_q_inject n q, n-1)
 
 
--- repeatedly push some element to the same queue, 
+-- repeatedly inject some element to the same queue, 
 -- popping an element as well to make it not be optimized away
-test_repeated_push_pop :: (Queue, Int) -> [Int]
-test_repeated_push_pop (q, n) = 
-	[ let (x,_) = generic_q_pop (generic_q_push i q) in x | i <- [1..n] ]
+test_repeated_inject_pop :: (Queue, Int) -> [Int]
+test_repeated_inject_pop (q, n) = 
+	[ let (x,_) = generic_q_pop (generic_q_inject i q) in x | i <- [1..n] ]
 
 
 
@@ -38,7 +38,7 @@ test_repeated_push_pop (q, n) =
 make_test_queue :: (Queue, Int) -> Queue
 make_test_queue (q, 0) = q
 make_test_queue (q, n) = 
-	make_test_queue (generic_q_push n q, n-1)
+	make_test_queue (generic_q_inject n q, n-1)
 
 
 -- less repeated code
@@ -58,10 +58,10 @@ make_nf_test_group (s, f, n) =
 make_sized_array_test_group :: Int -> Benchmark
 make_sized_array_test_group n = 
 	bgroup (show n)
-		[ make_nf_test_group ("test_pop_push", test_pop_push, n)
+		[ make_nf_test_group ("test_pop_inject", test_pop_inject, n)
 		, make_nf_test_group ("test_pop", test_pop, n)
-		, make_nf_test_group ("test_push", test_push, n)
-		, make_nf_test_group ("test_repeated_push_pop", test_repeated_push_pop, n)
+		, make_nf_test_group ("test_inject", test_inject, n)
+		, make_nf_test_group ("test_repeated_inject_pop", test_repeated_inject_pop, n)
 		]
 
 

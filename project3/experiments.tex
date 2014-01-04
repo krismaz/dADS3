@@ -1,4 +1,18 @@
 \section{Experiments}
+\subsection{Experiment Details}
+We ran the tests on a laptop using the Criterion benchmarking tool for haskell. The graphs were generated using Criterions ability to output data to csv. Each test was run for each queue type, n times. The values of n that was used went from 500 to 10000 with gaps of 500.
+
+\subsubsection{Test Types}
+Four types of tests was done:
+\begin{description}
+\item{1. \texttt{test\_pop}}
+\item{2. \texttt{test\_push}}
+\item{3. \texttt{test\_pop\_push}}
+\item{4. \texttt{test\_repeated\_push\_pop}}
+\end{description}
+
+
+
 \subsection{Expectations}
 When comparing the 4 different queue implementations, we expect them to perform as follow:
 \begin{description}

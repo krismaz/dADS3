@@ -5,8 +5,8 @@ module Queues where
 list_q_make :: [Int]
 list_q_make = []
 
-list_q_push :: Int -> [Int] -> [Int]
-list_q_push i l = reverse (i : (reverse l)) -- COuld probably be sped up by about a factor 2, depending on compiler magic
+list_q_inject :: Int -> [Int] -> [Int]
+list_q_inject i l = reverse (i : (reverse l)) -- COuld probably be sped up by about a factor 2, depending on compiler magic
 
 list_q_pop :: [Int] -> (Int, [Int])
 list_q_pop (x:xs) = (x, xs)
@@ -15,8 +15,8 @@ list_q_pop [] = error "Empty list_q_pop"
 strict_q_make :: ([Int], [Int])
 strict_q_make = ([],[])
 
-strict_q_push :: Int -> ([Int], [Int]) -> ([Int], [Int])
-strict_q_push i (h, t) = (h, i:t)
+strict_q_inject :: Int -> ([Int], [Int]) -> ([Int], [Int])
+strict_q_inject i (h, t) = (h, i:t)
 
 strict_q_pop :: ([Int], [Int]) -> (Int, ([Int], [Int]))
 strict_q_pop ([], []) = error "Empty strict_q_pop"
@@ -26,8 +26,8 @@ strict_q_pop (h:hs, t) = (h, (hs, t))
 lazy_q_make :: ([Int], [Int], (Int, Int))
 lazy_q_make = ([],[], (0,0))
 
-lazy_q_push :: Int -> ([Int], [Int], (Int, Int)) -> ([Int], [Int], (Int, Int))
-lazy_q_push i (h, t, (lh, lt))
+lazy_q_inject :: Int -> ([Int], [Int], (Int, Int)) -> ([Int], [Int], (Int, Int))
+lazy_q_inject i (h, t, (lh, lt))
 	| lh > lt = (h, i:t, (lh, lt + 1)) 
 	| otherwise = (h ++ (reverse (i:t)), [] , (lh + lt + 1 , 0))
 
@@ -85,8 +85,8 @@ melville_q_tail (Melville !lenf (f:fs) state !lenr r) = melville_q_check (Melvil
 melville_q_make :: MelvilleQ
 melville_q_make = (Melville 0 [] Idle 0 [])
 
-melville_q_push :: Int -> MelvilleQ -> MelvilleQ
-melville_q_push x (Melville !lenf f state !lenr r) = melville_q_check (Melville lenf f state (lenr + 1) (x:r))
+melville_q_inject :: Int -> MelvilleQ -> MelvilleQ
+melville_q_inject x (Melville !lenf f state !lenr r) = melville_q_check (Melville lenf f state (lenr + 1) (x:r))
 
 melville_q_pop :: MelvilleQ -> (Int, MelvilleQ)
 melville_q_pop q = (melville_q_head q, melville_q_tail q)
@@ -112,11 +112,11 @@ generic_q_make TStrict = (Strict strict_q_make)
 generic_q_make TLazy = (Lazy lazy_q_make)
 generic_q_make TRealTime = (RealTime melville_q_make)
 
-generic_q_push :: Int -> Queue -> Queue
-generic_q_push i (List l) = (List (list_q_push i l))
-generic_q_push i (Strict p) = (Strict (strict_q_push i p))
-generic_q_push i (Lazy pp) = (Lazy (lazy_q_push i pp))
-generic_q_push i (RealTime m) = (RealTime (melville_q_push i m))
+generic_q_inject :: Int -> Queue -> Queue
+generic_q_inject i (List l) = (List (list_q_inject i l))
+generic_q_inject i (Strict p) = (Strict (strict_q_inject i p))
+generic_q_inject i (Lazy pp) = (Lazy (lazy_q_inject i pp))
+generic_q_inject i (RealTime m) = (RealTime (melville_q_inject i m))
 
 generic_q_pop :: Queue -> (Int, Queue)
 generic_q_pop (List l) = case (list_q_pop l) of
