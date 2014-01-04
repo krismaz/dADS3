@@ -6,6 +6,6 @@ Skriv om tests //Roland
 Kør test for fornuftigt data (500-10000, med 500 interval?) //Done by Kris
 Lav grafer, fra csv //Roland, done
 skriv konklusion på tests //Kris will do
-Indsæt Grafer
+Indsæt Grafer //Roland, done. Der skal nok skrives lidt tekst til og ved ikke om de alle skal med.
 Fix up todos
 Write not about terminolgy pushinjectpop //Kris will do
