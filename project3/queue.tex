@@ -1,5 +1,11 @@
 \section{The Haskell Data Structures}
 
+\subsection{A Note About Terminology}
+
+A queue generally supports 2 operations, one to insert an element at the end of the queue, and one to extract the front element.
+The operation that insert an element onto the end of the queue often goes by the names \texttt{push / inject /enqueue / snoc}, while the removal operation goes by the names \texttt{pop / dequeue / (head, tail)}. In this paper, we will generally use \texttt{pop} and \texttt{inject}, though we might at certain points also use \texttt{push}.
+
+\subsection{The 4 Queues}
 As specified in the problem description, 4 different queues were implemented in Haskell. The have various properties, described as follows:
 
 \begin{description}
