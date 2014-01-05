@@ -3,7 +3,7 @@
 This is our first encounter with the development of performance-critical components i Haskell, and therefore we took our time looking into the different ways of making Haskell fast. Though we are sure that we have not done every trick in the book, and expect to have missed quite a few tricks that a Haskell veteran would have never let go, we were able to improve the performance of our initial data structures significantly through certain optimization patterns.
 
 \subsection{The GHC Compiler}
-The GHC compiler, short for \textit{Glasgow Haskell Compiler} (TODO:link til http://www.haskell.org/ghc/), was the compiler compiler used  in this project. GHC was chosen, since it is the most widely used compiler supporting the entire feature set of Haskell, and has a wide array of optimization options.
+The GHC compiler, short for \textit{Glasgow Haskell Compiler} \citep{ghc}, was the compiler compiler used  in this project. GHC was chosen, since it is the most widely used compiler supporting the entire feature set of Haskell, and has a wide array of optimization options.
 
 The programs were compile used the following set of command line parameters \texttt{ghc -O2 -funbox-strict-fields -XBangPatterns -optc-O3}. Each parameter has the following function:
 \begin{description}

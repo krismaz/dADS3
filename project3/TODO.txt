@@ -1,12 +1,16 @@
 Skriv intro //Done by Kris
-skriv conclusion //Kris will do
+skriv conclusion //Kris done
 Lav rapport //Done Kris
 Skriv om testframework (criterion) //Roland, done
-Skriv om tests //Roland
 Kør test for fornuftigt data (500-10000, med 500 interval?) //Done by Kris
 Lav grafer, fra csv //Roland, done
-skriv konklusion på tests //Kris will do
+skriv konklusion på tests //Kris done
 Indsæt Grafer //Roland, done. Der skal nok skrives lidt tekst til og ved ikke om de alle skal med.
-Fix up todos
-Write not about terminolgy pushinjectpop //Kris will do
-Tilføj referencer i raporten.
+Fix up todos //kris Done
+Write not about terminolgy pushinjectpop //Kris done
+Tilføj referencer i raporten. //Kris done
+
+Skriv kort note til grafer
+Skriv om tests //Roland
+Find forsidebillede
+kig alt igennem for fejl
