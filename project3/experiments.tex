@@ -6,9 +6,13 @@ We ran the tests on a laptop using the Criterion benchmarking tool for haskell. 
 Four types of tests was done:
 \begin{description}
 \item{1. \texttt{test\_pop}}
-\item{2. \texttt{test\_push}}
-\item{3. \texttt{test\_pop\_push}}
-\item{4. \texttt{test\_repeated\_push\_pop}}
+This test pops n elements off the queue. This test tells us something about how a lot of pops on the four different queues effects running time.
+\item{2. \texttt{test\_inject}}
+This test inject n elements onto the queue and tells us something about the effect of inject on running time.
+\item{3. \texttt{test\_pop\_inject}}
+In this test we pop an element from the queue and inject another. This is done n times.
+\item{4. \texttt{test\_repeated\_inject\_pop}}
+Here we repeatedly inject some element to the same queue while popping an element as well to make it not be optimized away. n elements are injected into the queue.
 \end{description}
 
 
