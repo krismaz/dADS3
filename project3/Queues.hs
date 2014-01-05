@@ -6,7 +6,7 @@ list_q_make :: [Int]
 list_q_make = []
 
 list_q_inject :: Int -> [Int] -> [Int]
-list_q_inject i l = reverse (i : (reverse l)) -- COuld probably be sped up by about a factor 2, depending on compiler magic
+list_q_inject i l = reverse (i : (reverse l)) -- Could probably be sped up by about a factor 2, depending on compiler magic
 
 list_q_pop :: [Int] -> (Int, [Int])
 list_q_pop (x:xs) = (x, xs)
@@ -15,6 +15,7 @@ list_q_pop [] = error "Empty list_q_pop"
 strict_q_make :: ([Int], [Int])
 strict_q_make = ([],[])
 
+-- parameters: 	h is head and t is tail which is reversed. i is the element we want to inject.
 strict_q_inject :: Int -> ([Int], [Int]) -> ([Int], [Int])
 strict_q_inject i (h, t) = (h, i:t)
 
@@ -26,11 +27,18 @@ strict_q_pop (h:hs, t) = (h, (hs, t))
 lazy_q_make :: ([Int], [Int], (Int, Int))
 lazy_q_make = ([],[], (0,0))
 
+
+-- parameters: 		h is head and t is tail which is reversed. i is the element we want to inject.
+-- 					lh is the length of h and lt is the lenght of t. 
+-- functionality:	If the length of h is larger than t then we push i to t.
+--					If the length of h is smaller than t, then h is concatenated with the reverse of t, 
+--					where i is pushed to t before t is reversed.
 lazy_q_inject :: Int -> ([Int], [Int], (Int, Int)) -> ([Int], [Int], (Int, Int))
 lazy_q_inject i (h, t, (lh, lt))
 	| lh > lt = (h, i:t, (lh, lt + 1)) 
 	| otherwise = (h ++ (reverse (i:t)), [] , (lh + lt + 1 , 0))
 
+-- works as inject. it just pops first element in h.
 lazy_q_pop :: ([Int], [Int], (Int, Int)) -> (Int , ([Int], [Int], (Int, Int)))
 lazy_q_pop ([], [], (0, 0)) = error "Empty lazy_q_pop" 
 lazy_q_pop (h:hs, t, (lh, lt))
@@ -38,7 +46,8 @@ lazy_q_pop (h:hs, t, (lh, lt))
 	| otherwise = (h , (hs ++ (reverse (t)), [] , (lh + lt - 1 , 0)))
 
 
---Implemented by following Oskakis book on functional data structures
+--Implemented by following Oskakis book on functional data structures. Section 4.2
+--Also callen Realtime Queue
 
 data State =
 	Idle |
