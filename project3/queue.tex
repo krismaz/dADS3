@@ -12,7 +12,7 @@ As specified in the problem description, 4 different queues were implemented in 
 \item[1. Haskell List:] 
 A queue can be implemented using a single built-in list from Haskell. 
 Performing a \texttt{pop} is simple, just split the list into the head and tail part.
-\texttt{Inject} on the other hand is slow, since we need to insert at the tail of the list. We do this, by reversing the list, adding the new final element as a head, and revering again. Note that this could probably be sped up by performing only a single run through the list, but it is, under any circumstance, an $O(n)$ operation.
+\texttt{Inject} on the other hand is slow, since we need to insert at the tail of the list. We do this, by reversing the list, adding the new final element as a head, and reversing again. Note that this could probably be sped up by performing only a single run through the list, but it is, under any circumstance, an $O(n)$ operation.
 Depending on how Haskells strictness analysis performs, we might actually see that the heavy work of the \texttt{inject} function gets thunked, and evaluated at the next \texttt{pop} operation.
 
 \paragraph{Alternative Single-List Options}
@@ -32,7 +32,7 @@ If we assume that any operation is only done on the currently newest version of 
 Note that even with lazy evaluation, we will most likely perform the entire reverse operation each time we need to reverse, since we need to remove the head.
 
 \item[3. Real-Time Strict Queues:] 
-For the $O(1)$ worst case queues we use the queues of \citep{melville}. Instead of using the implementation example from the slides of \citep{gerth}, we adapted the implementation presented in \citep{okasaki}. This queue maintains a front and a reversed end list, much like amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of the state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
+For the $O(1)$ worst case queues we use the queues of \citep{melville}. Instead of using the implementation example from the slides of \citep{gerth}, we adapted the implementation presented in \citep{okasaki}. This queue maintains a front and a reversed end list, much like the amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of the state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
 \begin{description}
 \item[Reversing] The queue is in the process of reversing the front and end list, in preparation of concatenating them. This phase uses 4 lists.
 \item[Appending] After having reversed the lists, the queue will append the front list to the end list one element at a time. This phase uses 2 lists.
