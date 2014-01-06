@@ -9,8 +9,8 @@ Indsæt Grafer //Roland, done. Der skal nok skrives lidt tekst til og ved ikke o
 Fix up todos //kris Done
 Write not about terminolgy pushinjectpop //Kris done
 Tilføj referencer i raporten. //Kris done
+Skriv om tests //Roland, done - Experimental Details Setion
 
 Skriv kort note til grafer
-Skriv om tests //Roland
 Find forsidebillede
 kig alt igennem for fejl
