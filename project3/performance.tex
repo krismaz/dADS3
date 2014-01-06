@@ -1,6 +1,6 @@
 \section{Haskell Performance Concerns}
 
-This is our first encounter with the development of performance-critical components i Haskell, and therefore we took our time looking into the different ways of making Haskell fast. Though we are sure that we have not done every trick in the book, and expect to have missed quite a few tricks that a Haskell veteran would have never let go, we were able to improve the performance of our initial data structures significantly through certain optimization patterns.
+This is our first encounter with the development of performance-critical components i Haskell, and therefore we took our time looking into the different ways of making Haskell fast. Though we are sure that we have not done every trick in the book, and expect to have missed quite a few tricks, we were able to improve the performance of our initial data structures significantly through certain optimization patterns.
 
 \subsection{The GHC Compiler}
 The GHC compiler, short for \textit{Glasgow Haskell Compiler} \citep{ghc}, was the compiler compiler used  in this project. GHC was chosen, since it is the most widely used compiler supporting the entire feature set of Haskell, and has a wide array of optimization options.
@@ -23,7 +23,7 @@ Note that a \textit{thunked} expression is only evaluated once, a key feature of
 
 Lazy \textit{thunks} do however have some performance concerns. Delayed execution may lead to a very heavy workload being assigned to a single operation, since long chains of unevaluated thunks might have developed. Also, the memory usage of storing these \textit{thunks}, if they are not forced in time.
 
-Since lazy evaluation is such a big part of Haskell performance, many of the optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try analyse when a value is imediately needed, and evaluate it strictly.
+Since lazy evaluation is such a big part of Haskell performance, many of the optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try to analyse when a value is immediately needed, and evaluate it strictly.
 
 \subsection{Using \texttt{case} to Force Strictness}
 

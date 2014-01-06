@@ -25,7 +25,7 @@ When comparing the 4 different queue implementations, we expect them to perform 
 The Haskell List queue implementation performs \texttt{inject} in $O(n)$ time, and as such, we expect it to perform horribly on any test case that requires pushes.
 On pure \texttt{pop} operations however, it will be $O(1)$, with a very low overhead, and as such it will most likely be among the fastest queues at performing \texttt{pop}s.
 \item[2. Paired O(1) Non-Reusable Queue:]
-The Paired Queue implementation should be fairly low-overhead, and as such perform quite well, except on the special test case, where we reuse queues.
+The Paired Queue implementation should be fairly low-overhead, and as such perform quite well, except on the special test case where we reuse queues.
 \item[3. Real-Time Strict Queues:] 
 The Real-Time Strict Queue should generally perform well on all test cases, since we have a nice $O(1)$ worst-case guarentee for all operations. This queue however, has quite a large overhead, and will therefore most likely be outperformed by most other queues in tests cases where they exhibit $O(1)$ performance. 
 \item[4. Lazy Amortized $O(1)$ Queues:]
@@ -49,7 +49,7 @@ Memory: & 2 GB\\ \hline
 
 
 \includegraphics{Graphs/test_pop_push.png}
-
+Note: the realtime and strict queues appear to be missing from these two graphs: they are not. They are simply hidden behind the lazy queue plot. Later graphs show a zoomed in view.
 
 \includegraphics{Graphs/test_repeated_push_pop.png}
 
