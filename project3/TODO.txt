@@ -13,4 +13,4 @@ Skriv om tests //Roland, done - Experimental Details Setion
 Find forsidebillede //done
 
 Skriv kort note til grafer
-kig alt igennem for fejl //Jan har kigget den igennem. ved ikke om alle vil før den er done
+kig alt igennem for fejl //Jan har kigget den igennem. ved ikke om alle vil før den er done. Roland vil gerne kikke det igennem. 
