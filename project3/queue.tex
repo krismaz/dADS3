@@ -11,15 +11,15 @@ As specified in the problem description, 4 different queues were implemented in 
 \begin{description}
 \item[1. Haskell List:] 
 A queue can be implemented using a single built-in list from Haskell. 
-Performing a \texttt{pop} is simple, just remove the head of the list into the head and tail part.
-\texttt{Inject} on the other hand is slow, since we need to insert at the tail of the list. We do this, by reversing the list, adding the new final element as a head, and revering again. Note that this could probably be sped up by performing only a single run through the list, but it is, under any circumstance, an $O(n)$ operation.
+Performing a \texttt{pop} is simple, just split the list into the head and tail part.
+\texttt{Inject} on the other hand is slow, since we need to insert at the tail of the list. We do this, by reversing the list, adding the new final element as a head, and reversing again. Note that this could probably be sped up by performing only a single run through the list, but it is, under any circumstance, an $O(n)$ operation.
 Depending on how Haskells strictness analysis performs, we might actually see that the heavy work of the \texttt{inject} function gets thunked, and evaluated at the next \texttt{pop} operation.
 
 \paragraph{Alternative Single-List Options}
 
 There are alternative ways to implement a queue in Haskell using only one list. We chose ours as being the conceptually simplest.
 
-Another way to keep store the queue, would be to keep it in a single list, in reverse order. This would give $O(1)$ \texttt{injects}, but $O(n)$ \texttt{pop}.
+Another way to store the queue would be to keep it in a single list, in reverse order. This would give $O(1)$ \texttt{injects}, but $O(n)$ \texttt{pop}.
 
 A quite interesting approach is to switch between reversed and normal ordering of the queue as needed, making operations $O(n)$ only when switching between \texttt{inject} and \texttt{pop}. 
 
@@ -32,7 +32,7 @@ If we assume that any operation is only done on the currently newest version of 
 Note that even with lazy evaluation, we will most likely perform the entire reverse operation each time we need to reverse, since we need to remove the head.
 
 \item[3. Real-Time Strict Queues:] 
-For the $O(1)$ worst case queues we use the queues of \citep{melville}. Instead of using the implementation example from the slides of \citep{gerth}, we adapted the implementation presented in \citep{okasaki}. This queue maintains a front and a reversed end list, much like amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of the state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
+For the $O(1)$ worst case queues we use the queues of \citep{melville}. Instead of using the implementation example from the slides of \citep{gerth}, we adapted the implementation presented in \citep{okasaki}. This queue maintains a front and a reversed end list, much like the amortized $O(1)$ strict queue, but uses global rebuilding to ensure that we can always pop in $O(1)$ worst case time. The implementation we are working with explicitly keeps track of the state it is in when doing global rebuilding. At any point in time, the global rebuilding of the queue may be in one of the following states:
 \begin{description}
 \item[Reversing] The queue is in the process of reversing the front and end list, in preparation of concatenating them. This phase uses 4 lists.
 \item[Appending] After having reversed the lists, the queue will append the front list to the end list one element at a time. This phase uses 2 lists.
@@ -46,7 +46,7 @@ After doing a \texttt{inject} or \texttt{pop}, we perform 2 steps of work on the
 
 Note that we also keep 3 counters in the queue; the front list length, the end list length and the amount of valid elements in the state. This ensures that we can easily determine whether or not to initiate a global rebuild, and which elements we can discard from the global rebuild.
 
-In terms of strictness, we use a \texttt{case} statement to ensure strict work step is strictly executed, but we fear that Haskell may still lazily thunk either some of the inner contents of the work operation, or during some of the functions leading to the work statement.
+In terms of strictness, we use a \texttt{case} statement to ensure the work step is strictly executed, but we fear that Haskell may still lazily thunk either some of the inner contents of the work operation, or during some of the functions leading to the work statement.
 
 \item[4. Lazy Amortized $O(1)$ Queues:]
 

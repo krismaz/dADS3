@@ -1,11 +1,11 @@
 \section{Haskell Performance Concerns}
 
-This is our first encounter with the development of performance-critical components i Haskell, and therefore we took our time looking into the different ways of making Haskell fast. Though we are sure that we have not done every trick in the book, and expect to have missed quite a few tricks that a Haskell veteran would have never let go, we were able to improve the performance of our initial data structures significantly through certain optimization patterns.
+This is our first encounter with the development of performance-critical components i Haskell, and therefore we took our time looking into the different ways of making Haskell fast. Though we are sure that we have not done every trick in the book, and expect to have missed quite a few tricks, we were able to improve the performance of our initial data structures significantly through certain optimization patterns.
 
 \subsection{The GHC Compiler}
 The GHC compiler, short for \textit{Glasgow Haskell Compiler} \citep{ghc}, was the compiler compiler used  in this project. GHC was chosen, since it is the most widely used compiler supporting the entire feature set of Haskell, and has a wide array of optimization options.
 
-The programs were compile used the following set of command line parameters \texttt{ghc -O2 -funbox-strict-fields -XBangPatterns -optc-O3}. Each parameter has the following function:
+The programs were compiled used the following set of command line parameters \texttt{ghc -O2 -funbox-strict-fields -XBangPatterns -optc-O3}. Each parameter has the following function:
 \begin{description}
 \item[-O2] Perform heavy compile-time optimizations. This option should make the programs run a tiny bit faster than using \texttt[-O].
 \item[-funbox-strict-fields] Automatically unbox strict fields. This is mostly a cosmetic parameter allowing us to omit \texttt{UNPAK} tags from our code.
@@ -23,13 +23,13 @@ Note that a \textit{thunked} expression is only evaluated once, a key feature of
 
 Lazy \textit{thunks} do however have some performance concerns. Delayed execution may lead to a very heavy workload being assigned to a single operation, since long chains of unevaluated thunks might have developed. Also, the memory usage of storing these \textit{thunks}, if they are not forced in time.
 
-Since lazy evaluation is such a big part of Haskell performance, many of the optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try analyse when a value is imediately needed, and evaluate it strictly.
+Since lazy evaluation is such a big part of Haskell performance, many of the optimization techniques used are based on forcing evaluation of thunks at certain critical points, and the GHC itself will try to analyse when a value is immediately needed, and evaluate it strictly.
 
 \subsection{Using \texttt{case} to Force Strictness}
 
 In the Real-Time Strict Queues, we wish to enforce strictness on the evaluation of the global rebuilding. We do this using the \texttt{case} statement, which performs pattern matching on the result of a given expression. Since we need to know the structure of the result, we force the execution of the thunk representing the global rebuilding state, and maintain the O(1) worst-case guarantee for all operations.
 
-\subsection{Strict Data Types} Strictness can be enforced for type members, and unpacked into function parameters using the \texttt{-funbox-strict-fields} compiler flag. In certain parts of the program data structure, this can save us the overhead of thunking, and lead to a significant speedup.
+\subsection{Strict Data Types} Strictness can be enforced for type members, and unpacked into function parameters using the \texttt{-funbox-strict-fields} compiler flag. In certain parts of the program's data structures, this can save us the overhead of thunking, and lead to a significant speedup.
 
 Simply marking the general structure of the Lazy Queue as strict (note that inner values are still lazy, we do not force strict execution of the lists making up the queue), and unpacking it, lead to a speedup of $\sim 5\%-30\%$, depending on the test suite.
 
