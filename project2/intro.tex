@@ -5,3 +5,7 @@ Heaps are a very useful kind of data structure, and several algorithms depend on
 In this project, we will look at Van Emde Boas Trees, and how they can be used to create a quite efficient heap. Van Emde Boas trees are quite peculiar data structures, whose upper bound for the \texttt{Insert}, \texttt{Delete} \texttt{Member} and \texttt{Predecessor} are $O(\log ( \log (U)))$, with $U$ being the universe size. However, they have they drawback of not supporting  using $O(U)$ memory, unless we have access to perfect hashing.
 
 In this project we hope to show that by limiting the key type of the heap to be 24-bit integers and not supporting the \texttt{DecreaseKey} operation, we can construct a very efficient heap backed by a Van Emde Boas tree. Also, we wish to compare the performance of Van Emde Boas trees to more general trees supporting the \texttt{Predecessor} operation, specifically Red-Black trees, and hope to show that the Van Emde Boas trees are superior even on these simple operations.
+
+The code can be found at:
+
+\url{https://gist.github.com/Shne/31848ee3af3ab6e0d809}
